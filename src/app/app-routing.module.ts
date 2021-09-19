@@ -1,8 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdminloginComponent } from './adminlogin/adminlogin.component';
+import { EditAirlineComponent } from './edit-airline/edit-airline.component';
+import { FlightbookingComponent } from './flightbooking/flightbooking.component';
+import { HomeComponent } from './home/home.component';
+import { UserloginComponent } from './userlogin/userlogin.component';
+import { ViewBookingComponent } from './view-booking/view-booking.component';
 
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'user', component: UserloginComponent },
+  { path: 'user/:id1/flightBooking', component: FlightbookingComponent },
+  { path: 'user/:id1/flightBooking/view', component: ViewBookingComponent },
+  { path: 'admin', component: AdminloginComponent },
+  { path: 'admin/view', component: EditAirlineComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

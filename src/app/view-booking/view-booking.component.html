@@ -1,0 +1,44 @@
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div style="align-items: center;"><a href="#" class="navbar-brand">Flight Booking Application</a></div>
+        <ul class="navbar-nav">
+            <li><a class="nav-link" (click)="gotoView()">View Bookings</a></li>
+            <li><a class="nav-link" (click)="gotoFlightBooking()">New Bookings</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="col-md-6">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>pnr</th>
+                <th>name</th>
+                <th>emailId</th>
+                <th>numberOfSeats</th>
+                <th>seatType</th>
+                <th>mealOption</th>
+                <th>seatnos</th>
+                <th>dateofTravel</th>
+                <th>ticketCost</th>
+                <th>flightNumber</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let book of bookingDetails;">
+                <td>{{book.pnr}}</td>
+                <td>{{book.name}}</td>
+                <td>{{book.emailId}}</td>
+                <td>{{book.numberOfSeats}}</td>
+                <td>{{book.seatType}}</td>
+                <td>{{book.mealOption}}</td>
+                <td>{{book.seatNos}}</td>
+                <td>{{book.dateOfTravel}}</td>
+                <td>{{book.ticketCost}}</td>
+                <td>{{book.flightNumber}}</td>
+                <td><button class="btn btn-danger" (click)="deleteTicket(book)">Cancel Ticket</button></td>
+            </tr>
+        </tbody>
+      </table>
+  
+    </div>

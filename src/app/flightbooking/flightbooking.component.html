@@ -1,0 +1,125 @@
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div style="align-items: center;"><a href="#" class="navbar-brand">Flight Booking Application</a></div>
+        <ul class="navbar-nav">
+            <li><a class="nav-link" (click)="gotoView()">View Bookings</a></li>
+            <li><a class="nav-link" (click)="gotoFlightBooking()">New Bookings</a></li>
+        </ul>
+    </nav>
+</header>
+
+<table class='table'>
+    <thead>
+        <tr>
+            <th>flightNumber</th>
+            <th>airline</th>
+            <th>fromPlace</th>
+            <th>toPlace</th>
+            <th>startDateTime</th>
+            <th>endDateTime</th>
+            <th>scheduledDays</th>
+            <th>nosOfBusinessClassSeats</th>
+            <th>nosOfNonBusinessClassSeats</th>
+            <th>ticketCost</th>
+            <th>nosOfRows</th>
+            <th>meals</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let flight of flightDetails;" (click)="getFlightDetails(flight)">
+            <td>{{flight.flightNumber}}</td>
+            <td>{{flight.airline}}</td>
+            <td>{{flight.fromPlace}}</td>
+            <td>{{flight.toPlace}}</td>
+            <td>{{flight.startDateTime}}</td>
+            <td>{{flight.endDateTime}}</td>
+            <td>{{flight.scheduledDays}}</td>
+            <td>{{flight.nosOfBusinessClassSeats}}</td>
+            <td>{{flight.nosOfNonBusinessClassSeats}}</td>
+            <td>{{flight.ticketCost}}</td>
+            <td>{{flight.nosOfRows}}</td>
+            <td>{{flight.meals}}</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<div class="col-md-6">
+    <h2 class="text-center">Book a ticket</h2>
+    <form>
+
+        <div class="form-group">
+            <label for="flightNumber">Flight Number:</label>
+            <input [(ngModel)]="bookingDetailsDisplay.flightNumber" placeholder="Flight Number" name="flightNumber"
+                class="form-control" id="flightNumber">
+        </div>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" [(ngModel)]="bookingDetailsDisplay.name" placeholder="Name" name="name"
+                class="form-control" id="name">
+        </div>
+
+        <div class="form-group">
+            <label for="emailId">Email Id:</label>
+            <input [(ngModel)]="bookingDetailsDisplay.emailId" placeholder="Email Id" name="emailId"
+                class="form-control" id="emailId">
+        </div>
+
+        <div class="form-group">
+            <label for="numberOfSeats">Number of Seats:</label>
+            <input [(ngModel)]="bookingDetailsDisplay.numberOfSeats" placeholder="Number of Seats" name="numberOfSeats"
+                class="form-control" id="numberOfSeats">
+        </div>
+
+        <div class="form-group">
+            <label for="seatType">Seat Type:</label>
+            <!-- <input [(ngModel)]="bookingDetailsDisplay.seatType" placeholder="Seat Type" name="seatType"
+                class="form-control" id="seatType"> -->
+            <input type="radio" value="Business Class" id="seatType" name="seatType"
+                [(ngModel)]="bookingDetailsDisplay.seatType" (change)="loadCost($event)">Business Class
+            <input type="radio" value="Non - Business Class" id="seatType" name="seatType"
+                [(ngModel)]="bookingDetailsDisplay.seatType" (change)="loadCost($event)">Non-Business Class
+
+        </div>
+
+        <div class="form-group">
+            <label for="mealOption">Meal Options:</label>
+            <!-- <input [(ngModel)]="bookingDetailsDisplay.mealOption" placeholder="Meal Options" name="mealOption"
+                class="form-control" id="mealOption"> -->
+                <input type="radio" value="Veg" id="mealOption" name="mealOption"
+                [(ngModel)]="bookingDetailsDisplay.mealOption">Veg
+            <input type="radio" value="Non-Veg" id="mealOption" name="mealOption"
+                [(ngModel)]="bookingDetailsDisplay.mealOption">Non-Veg
+
+
+        </div>
+
+        <div class="form-group">
+            <label for="seatnos">Seat Numbers:</label>
+            <input [(ngModel)]="bookingDetailsDisplay.seatnos" placeholder="Seat Nos" name="seatnos"
+                class="form-control" id="seatnos">
+        </div>
+
+        <div class="form-group">
+            <label for="passengerDetails">Passenger Details:</label>
+            <input [(ngModel)]="bookingDetailsDisplay.passengerDetails"
+                placeholder="Name-Gender-Age,Name-Gender-Age,..." name="passengerDetails" class="form-control"
+                id="passengerDetails">
+        </div>
+
+        <div class="form-group">
+            <label for="dateofTravel">Date of Travel:</label>
+            <input [(ngModel)]="bookingDetailsDisplay.dateofTravel" placeholder="Datenof travel" name="dateofTravel"
+                class="form-control" id="dateofTravel">
+        </div>
+
+        <div class="form-group">
+            <label for="ticketCost">Total Cost:</label>
+            <input [(ngModel)]="bookingDetailsDisplay.ticketCost" placeholder="Total Cost" name="ticketCost"
+                class="form-control" id="ticketCost">
+        </div>
+
+        <button class="btn btn-success" (click)="bookATicket(bookingDetailsDisplay.flightNumber)">Book</button>
+    </form>
+</div>
