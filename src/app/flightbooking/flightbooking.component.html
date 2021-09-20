@@ -1,125 +1,165 @@
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div style="align-items: center;"><a href="#" class="navbar-brand">Flight Booking Application</a></div>
-        <ul class="navbar-nav">
-            <li><a class="nav-link" (click)="gotoView()">View Bookings</a></li>
-            <li><a class="nav-link" (click)="gotoFlightBooking()">New Bookings</a></li>
-        </ul>
-    </nav>
-</header>
+<div class="header">
+    <a class="logo">Flight Booking Application</a>
+    <div class="header-right">
+        <a class="active" (click)="gotoFlightBooking()">New Booking</a>
+        <a (click)="gotoView()">View Booking</a>
+        <a href="#" style="color: firebrick;">Sign Out</a>
+    </div>
+</div>
 
-<table class='table'>
-    <thead>
-        <tr>
-            <th>flightNumber</th>
-            <th>airline</th>
-            <th>fromPlace</th>
-            <th>toPlace</th>
-            <th>startDateTime</th>
-            <th>endDateTime</th>
-            <th>scheduledDays</th>
-            <th>nosOfBusinessClassSeats</th>
-            <th>nosOfNonBusinessClassSeats</th>
-            <th>ticketCost</th>
-            <th>nosOfRows</th>
-            <th>meals</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let flight of flightDetails;" (click)="getFlightDetails(flight)">
-            <td>{{flight.flightNumber}}</td>
-            <td>{{flight.airline}}</td>
-            <td>{{flight.fromPlace}}</td>
-            <td>{{flight.toPlace}}</td>
-            <td>{{flight.startDateTime}}</td>
-            <td>{{flight.endDateTime}}</td>
-            <td>{{flight.scheduledDays}}</td>
-            <td>{{flight.nosOfBusinessClassSeats}}</td>
-            <td>{{flight.nosOfNonBusinessClassSeats}}</td>
-            <td>{{flight.ticketCost}}</td>
-            <td>{{flight.nosOfRows}}</td>
-            <td>{{flight.meals}}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="w3-container w3-responsive"
+    style="padding-top: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <table class="w3-table-all w3-card-4 w3-hoverable">
+        <thead>
+            <tr style="background-color: lightgray;font-size: medium;">
+                <th>Flight Number</th>
+                <th>Airline Name</th>
+                <th>From Place</th>
+                <th>To Place</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Scheduled Days</th>
+                <th>Business Class Seats</th>
+                <th>Non-Business Class Seats</th>
+                <th>Rows</th>
+                <th>Meals</th>
+                <th>Ticket Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let flight of flightDetails;" (click)="getFlightDetails(flight)">
+                <td>{{flight.flightNumber}}</td>
+                <td>{{flight.airline}}</td>
+                <td>{{flight.fromPlace}}</td>
+                <td>{{flight.toPlace}}</td>
+                <td>{{flight.startDateTime}}</td>
+                <td>{{flight.endDateTime}}</td>
+                <td>{{flight.scheduledDays}}</td>
+                <td>{{flight.nosOfBusinessClassSeats}}</td>
+                <td>{{flight.nosOfNonBusinessClassSeats}}</td>
+                <td>{{flight.nosOfRows}}</td>
+                <td>{{flight.meals}}</td>
+                <td>{{flight.ticketCost}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 
-
-<div class="col-md-6">
-    <h2 class="text-center">Book a ticket</h2>
-    <form>
-
-        <div class="form-group">
-            <label for="flightNumber">Flight Number:</label>
-            <input [(ngModel)]="bookingDetailsDisplay.flightNumber" placeholder="Flight Number" name="flightNumber"
-                class="form-control" id="flightNumber">
+<div class="container">
+    <h1 class="text-center">Book Tickets</h1>
+    <div *ngIf="status" style="background-color: lightgoldenrodyellow;">
+        <span style="margin-left: 15px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size: larger;"><b style="color: blue;">Warning: </b><b>{{message}}</b></span>
+    </div>
+    <form name="ticketBookingForm">
+        <div class="form-group row">
+            <div class="col-25">
+                <label for="flightNumber">Flight Number:</label>
+            </div>
+            <div class="col-75">
+                <input type="text" [(ngModel)]="bookingDetailsDisplay.flightNumber" placeholder="Flight Number"
+                    name="flightNumber" class="form-control" id="flightNumber" readonly>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" [(ngModel)]="bookingDetailsDisplay.name" placeholder="Name" name="name"
-                class="form-control" id="name">
-        </div>
-
-        <div class="form-group">
-            <label for="emailId">Email Id:</label>
-            <input [(ngModel)]="bookingDetailsDisplay.emailId" placeholder="Email Id" name="emailId"
-                class="form-control" id="emailId">
-        </div>
-
-        <div class="form-group">
-            <label for="numberOfSeats">Number of Seats:</label>
-            <input [(ngModel)]="bookingDetailsDisplay.numberOfSeats" placeholder="Number of Seats" name="numberOfSeats"
-                class="form-control" id="numberOfSeats">
-        </div>
-
-        <div class="form-group">
-            <label for="seatType">Seat Type:</label>
-            <!-- <input [(ngModel)]="bookingDetailsDisplay.seatType" placeholder="Seat Type" name="seatType"
-                class="form-control" id="seatType"> -->
-            <input type="radio" value="Business Class" id="seatType" name="seatType"
-                [(ngModel)]="bookingDetailsDisplay.seatType" (change)="loadCost($event)">Business Class
-            <input type="radio" value="Non - Business Class" id="seatType" name="seatType"
-                [(ngModel)]="bookingDetailsDisplay.seatType" (change)="loadCost($event)">Non-Business Class
-
+        <div class="form-group row">
+            <div class="col-25">
+                <label for="name">Name:</label>
+            </div>
+            <div class="col-75">
+                <input type="text" [(ngModel)]="bookingDetailsDisplay.name" placeholder="Name" name="name"
+                    class="form-control" id="name">
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="mealOption">Meal Options:</label>
-            <!-- <input [(ngModel)]="bookingDetailsDisplay.mealOption" placeholder="Meal Options" name="mealOption"
-                class="form-control" id="mealOption"> -->
+        <div class="form-group row">
+            <div class="col-25">
+                <label for="emailId">Email Id:</label>
+            </div>
+            <div class="col-75">
+                <input type="text" [(ngModel)]="bookingDetailsDisplay.emailId" placeholder="Email Id" name="emailId"
+                    class="form-control" id="emailId" readonly>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-25">
+                <label for="numberOfSeats">Number of Seats:</label>
+            </div>
+            <div class="col-75">
+                <input type="number" [(ngModel)]="bookingDetailsDisplay.numberOfSeats" placeholder="Number of Seats"
+                    name="numberOfSeats" class="form-control" id="numberOfSeats" min=1 required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-25">
+                <label for="seatType">Seat Type:</label>
+            </div>
+            <div class="col-75">
+                <input type="radio" value="Business Class" id="seatType" name="seatType"
+                    [(ngModel)]="bookingDetailsDisplay.seatType" (change)="loadCost($event)"> Business Class
+                <input type="radio" value="Non - Business Class" id="seatType" name="seatType"
+                    [(ngModel)]="bookingDetailsDisplay.seatType" (change)="loadCost($event)" checked> Non-Business Class
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-25">
+                <label for="mealOption">Meal Options:</label>
+            </div>
+            <div class="col-75">
                 <input type="radio" value="Veg" id="mealOption" name="mealOption"
-                [(ngModel)]="bookingDetailsDisplay.mealOption">Veg
-            <input type="radio" value="Non-Veg" id="mealOption" name="mealOption"
-                [(ngModel)]="bookingDetailsDisplay.mealOption">Non-Veg
-
-
+                    [(ngModel)]="bookingDetailsDisplay.mealOption"> Veg
+                <input type="radio" value="Non-Veg" id="mealOption" name="mealOption"
+                    [(ngModel)]="bookingDetailsDisplay.mealOption"> Non-Veg
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="seatnos">Seat Numbers:</label>
-            <input [(ngModel)]="bookingDetailsDisplay.seatnos" placeholder="Seat Nos" name="seatnos"
-                class="form-control" id="seatnos">
+        <div class="form-group row">
+            <div class="col-25">
+                <label for="seatnos">Seat Numbers:</label>
+            </div>
+            <div class="col-75">
+                <input type="text" [(ngModel)]="bookingDetailsDisplay.seatnos" placeholder="Seat Nos" name="seatnos"
+                    class="form-control" id="seatnos" required>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="passengerDetails">Passenger Details:</label>
-            <input [(ngModel)]="bookingDetailsDisplay.passengerDetails"
-                placeholder="Name-Gender-Age,Name-Gender-Age,..." name="passengerDetails" class="form-control"
-                id="passengerDetails">
+        <div class="form-group row">
+            <div class="col-25">
+                <label for="passengerDetails">Passenger Details:</label>
+            </div>
+            <div class="col-75">
+                <textarea placeholder="Write something.." style="height:200px"
+                    [(ngModel)]="bookingDetailsDisplay.passengerDetails"
+                    placeholder="Name-Gender-Age,Name-Gender-Age,..." name="passengerDetails" class="form-control"
+                    id="passengerDetails" required></textarea>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="dateofTravel">Date of Travel:</label>
-            <input [(ngModel)]="bookingDetailsDisplay.dateofTravel" placeholder="Datenof travel" name="dateofTravel"
-                class="form-control" id="dateofTravel">
+        <div class="form-group row">
+            <div class="col-25">
+                <label for="dateofTravel">Date of Travel:</label>
+            </div>
+            <!-- <input [(ngModel)]="bookingDetailsDisplay.dateofTravel" placeholder="Datenof travel" name="dateofTravel"
+                class="form-control" id="dateofTravel"> -->
+            <div class="col-75">
+                <input type="date" id="start" name="trip-start" value="" id="dateofTravel"
+                    [(ngModel)]="bookingDetailsDisplay.dateofTravel" required>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="ticketCost">Total Cost:</label>
-            <input [(ngModel)]="bookingDetailsDisplay.ticketCost" placeholder="Total Cost" name="ticketCost"
-                class="form-control" id="ticketCost">
+        <div class="form-group row">
+            <div class="col-25">
+                <label for="ticketCost">Total Cost:</label>
+            </div>
+            <div class="col-75">
+                <input type="text" [(ngModel)]="bookingDetailsDisplay.ticketCost" placeholder="Total Cost"
+                    name="ticketCost" class="form-control" id="ticketCost" readonly>
+            </div>
         </div>
-
-        <button class="btn btn-success" (click)="bookATicket(bookingDetailsDisplay.flightNumber)">Book</button>
+        <br>
+        <button type="submit" class="btn btn-success" (click)="bookATicket(bookingDetailsDisplay.flightNumber)">Book Ticket >></button>
+        <br><br>
     </form>
 </div>

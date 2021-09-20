@@ -1,32 +1,33 @@
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div style="align-items: center;"><a href="#" class="navbar-brand">Flight Booking Application</a></div>
-        <ul class="navbar-nav">
-            <li><a class="nav-link" (click)="gotoView()">View Bookings</a></li>
-            <li><a class="nav-link" (click)="gotoFlightBooking()">New Bookings</a></li>
-        </ul>
-    </nav>
-</header>
+<div class="header">
+    <a class="logo">Flight Booking Application</a>
+    <div class="header-right">
+      <a (click)="gotoFlightBooking()">New Booking</a>
+      <a class="active" (click)="gotoView()">View Booking</a>
+      <a href="#" style="color: firebrick;">Sign Out</a>
+    </div>
+  </div>
 
-<div class="col-md-6">
-    <table class="table table-striped">
+  <div class="w3-container w3-responsive" style="padding-top: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <table class="w3-table-all w3-card-4">
         <thead>
-            <tr>
-                <th>pnr</th>
-                <th>name</th>
-                <th>emailId</th>
-                <th>numberOfSeats</th>
-                <th>seatType</th>
-                <th>mealOption</th>
-                <th>seatnos</th>
-                <th>dateofTravel</th>
-                <th>ticketCost</th>
+            <tr style="background-color: lightgray;font-size: medium;">
+                <th>PNR No</th>
                 <th>flightNumber</th>
+                <th>Name</th>
+                <th>Email Id</th>
+                <th>Number of Seats</th>
+                <th>Seat Type</th>
+                <th>Meal Option</th>
+                <th>Seat Nos</th>
+                <th>Date of Travel</th>
+                <th>Ticket Cost</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let book of bookingDetails;">
                 <td>{{book.pnr}}</td>
+                <td>{{book.flightNumber}}</td>
                 <td>{{book.name}}</td>
                 <td>{{book.emailId}}</td>
                 <td>{{book.numberOfSeats}}</td>
@@ -35,10 +36,8 @@
                 <td>{{book.seatNos}}</td>
                 <td>{{book.dateOfTravel}}</td>
                 <td>{{book.ticketCost}}</td>
-                <td>{{book.flightNumber}}</td>
-                <td><button class="btn btn-danger" (click)="deleteTicket(book)">Cancel Ticket</button></td>
+                <td><button class="w3-button w3-red" (click)="deleteTicket(book)">Delete</button></td>
             </tr>
         </tbody>
-      </table>
-  
-    </div>
+    </table>
+</div>
