@@ -49,6 +49,9 @@ export class FlightbookingComponent implements OnInit {
     } else if(this.bookingDetailsDisplay.numberOfSeats == 0) {
       this.status = true;
       this.message = "Please enter number of seats to book!";
+    } else if(this.bookingDetailsDisplay.mealOption == "") {
+      this.status = true;
+      this.message = "Please enter your meal option!";
     } else if(this.bookingDetailsDisplay.seatType == "") {
       this.status = true;
       this.message = "Please enter your seat type either Business class or Non-Business class";
@@ -96,6 +99,7 @@ export class FlightbookingComponent implements OnInit {
     console.log(this.bookingDetailsDisplay)
     this.http.bookATicket(flightNumber, this.bookingDetailsDisplay).subscribe(
       data => {console.log(data)
+        alert("Successfully Booked!")
       this.gotoView();
       }
     ), error => console.log(error)

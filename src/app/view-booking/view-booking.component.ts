@@ -9,9 +9,12 @@ import { HttpService, BookingDetails } from '../service/HttpService.service';
 export class ViewBookingComponent implements OnInit {
 
   emailId: string;
-  constructor(private router:Router, private activatedRoute: ActivatedRoute, private http:HttpService) { }
+  message:any;
+  status:boolean = false;
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService) { }
   bookingDetails: BookingDetails[];
   ngOnInit(): void {
+    this.status = false;
     this.activatedRoute.paramMap.subscribe(params => {
       var id = params.get('id1');
       this.emailId = id;
@@ -22,11 +25,18 @@ export class ViewBookingComponent implements OnInit {
   getBookedDetails(emailId) {
     this.http.getBookedTicket(emailId).subscribe(data => {
       console.log(data);
-      this.bookingDetails = data}, error => console.log(error));
+      this.bookingDetails = data
+    }, error => console.log(error));
   }
 
-  deleteTicket(book:BookingDetails){
+  deleteTicket(book: BookingDetails) {
     console.log(book.pnr)
+    this.http.deleteBookedTicket(book.pnr).subscribe(data => {
+      console.log(data);
+      this.getBookedDetails(this.emailId)
+      this.status = true;
+      this.message = book.pnr + " ticket cancelled by the user " + this.emailId;
+    }), error => console.log(error)
   }
 
   gotoView() {
@@ -34,7 +44,7 @@ export class ViewBookingComponent implements OnInit {
   }
 
   gotoFlightBooking() {
-    this.router.navigate([ "user/"+this.emailId+"/flightBooking"]);
+    this.router.navigate(["user/" + this.emailId + "/flightBooking"]);
   }
 
 }

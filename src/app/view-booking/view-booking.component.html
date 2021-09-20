@@ -7,7 +7,13 @@
     </div>
   </div>
 
+  
+
   <div class="w3-container w3-responsive" style="padding-top: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <div *ngIf="status" style="background-color: lightgreen;">
+        <h3  style="margin-left: 15px; font-size: larger;"
+            style="color: green">{{message}}</h3>
+      </div>
     <table class="w3-table-all w3-card-4">
         <thead>
             <tr style="background-color: lightgray;font-size: medium;">

@@ -96,7 +96,7 @@ export class HttpService {
   }
 
   deleteBookedTicket(pnr:any) {
-    return this.http.delete('http://localhost:8081/user/api/v1.0/flight/booking/cancel/'+pnr)
+    return this.http.delete('http://localhost:8081/user/api/v1.0/flight/booking/cancel/'+pnr, {responseType: 'text'})
   }
   
 }
