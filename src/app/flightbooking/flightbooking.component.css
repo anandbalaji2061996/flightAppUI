@@ -19,6 +19,8 @@ body {
   font-size: 18px; 
   line-height: 25px;
   border-radius: 4px;  
+  font-weight: bold;
+  cursor: pointer;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -60,7 +62,8 @@ body {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    float:right
+    float:right;
+    font-weight: bold;
   }
   
   button[type=submit]:hover {

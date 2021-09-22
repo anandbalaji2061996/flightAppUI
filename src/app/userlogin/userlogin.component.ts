@@ -23,15 +23,16 @@ export class UserloginComponent implements OnInit {
   registerUser() {
     this.httpService.registerUser(this.user)
       .subscribe(data => {
-        if (data == "Success")
+        if (data == "User registered successfully!")
         this.nextUrl(this.user.emailId);
       else
-        alert("Invalid Credentials! Please register your user details!");
+        alert("Credentials alredy available. Try with different credentials!");
       }, error => console.log(error));
 
   };
 
   loginUser() {
+    console.log(this.userLogin)
     this.httpService.loginUser(this.userLogin).subscribe(data => {
       console.log(data);
       if (data == "Success")
@@ -40,6 +41,7 @@ export class UserloginComponent implements OnInit {
         alert("Invalid Credentials! Please register your user details!");
 
     }, error => {
+      alert("Invalid Credentials! Please register your user details!");
       console.log(error)});
   }
 

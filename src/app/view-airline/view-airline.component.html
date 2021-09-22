@@ -1,0 +1,59 @@
+<div class="header">
+    <a class="logo">Flight Booking Application</a>
+    <div class="header-right">
+        <a (click)="gotoRegisterFlight()">Register Flight</a>
+        <a class="active" (click)="gotoAvailable()">Available Flights</a>
+        <a href="#" style="color: red;font-weight: 500;">Sign Out</a>
+    </div>
+</div>
+
+<div class="w3-container w3-responsive"
+    style="padding-top: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <div *ngIf="status" style="background-color: lightgreen;">
+        <h3  style="margin-left: 15px; font-size: larger;"
+            style="color: green">{{message}}</h3>
+      </div>
+
+      <div *ngIf="!tableStatus" style="background-color: lightgoldenrodyellow;">
+        <h3  style="margin-left: 15px; font-size: larger;"
+            style="color: indianred">{{message}}</h3>
+      </div>
+    <table class="w3-table-all w3-card-4 w3-hoverable">
+        <thead>
+            <tr style="background-color: lightgray;font-size: medium;">
+                <th>Flight Number</th>
+                <th>Airline Name</th>
+                <th>From Place</th>
+                <th>To Place</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Scheduled Days</th>
+                <th>Business Class Seats</th>
+                <th>Non-Business Class Seats</th>
+                <th>Rows</th>
+                <th>Meals</th>
+                <th>Ticket Cost</th>
+                <th>Edit Details</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let flight of flightDetails;">
+                <td>{{flight.flightNumber}}</td>
+                <td>{{flight.airline}}</td>
+                <td>{{flight.fromPlace}}</td>
+                <td>{{flight.toPlace}}</td>
+                <td>{{flight.startDateTime}}</td>
+                <td>{{flight.endDateTime}}</td>
+                <td>{{flight.scheduledDays}}</td>
+                <td>{{flight.nosOfBusinessClassSeats}}</td>
+                <td>{{flight.nosOfNonBusinessClassSeats}}</td>
+                <td>{{flight.nosOfRows}}</td>
+                <td>{{flight.meals}}</td>
+                <td>{{flight.ticketCost}}</td>
+                <td><button class="button w3-blue" (click)="gotoEdit(flight)">Edit</button></td>
+                <td><button class="button w3-red" (click)="deleteFlight(flight)">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

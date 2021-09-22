@@ -11,6 +11,7 @@ export class ViewBookingComponent implements OnInit {
   emailId: string;
   message:any;
   status:boolean = false;
+  tableStatus:boolean = true;
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService) { }
   bookingDetails: BookingDetails[];
   ngOnInit(): void {
@@ -25,7 +26,11 @@ export class ViewBookingComponent implements OnInit {
   getBookedDetails(emailId) {
     this.http.getBookedTicket(emailId).subscribe(data => {
       console.log(data);
-      this.bookingDetails = data
+      this.bookingDetails = data;
+      if (this.bookingDetails.length == 0) {
+        this.tableStatus = false;
+        this.message = "No Records Found!"
+      }
     }, error => console.log(error));
   }
 

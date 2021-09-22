@@ -1,3 +1,21 @@
 <div class="header" style="text-align: center;">
     <a href="#" class="logo">Flight Booking Application</a>
 </div>
+<div class="column">
+    <form>
+        <div class="container" style="margin-left: 7%;margin-right: 12%;">
+            <h1>Admin Login</h1>
+            <p>Please enter your admin credentials.</p>
+            <hr>
+            <label for="username"><b>Username</b></label>
+            <input type="text" [(ngModel)]="adminLogin.username" placeholder="Enter Username" name="username"
+                class="form-control" id="username" required>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" [(ngModel)]="adminLogin.password" placeholder="Enter Password" name="password"
+                class="form-control" id="password" required>
+            <button type="submit" class="registerbtn" (click)="loginAdmin()">Login</button>
+        </div>
+
+    </form>
+</div>

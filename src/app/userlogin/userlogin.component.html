@@ -1,41 +1,44 @@
 <div class="header" style="text-align: center;">
     <a href="#" class="logo">Flight Booking Application</a>
 </div>
-<div class="col-md-6">
-    <h2 class="text-center">Register User</h2>
-    <form>
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="name" [(ngModel)]="user.name" placeholder="Name" name="name" class="form-control" id="name">
-      </div>
-    
-      <div class="form-group">
-        <label for="emailId">Email Id:</label>
-        <input [(ngModel)]="user.emailId" placeholder="Email Id" name="emailId" class="form-control" id="emailId">
-      </div>
-    
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input [(ngModel)]="user.password" placeholder="Password" name="password" class="form-control" id="password">
-      </div>
-    
-      <button class="btn btn-success" (click)="registerUser()">Register</button>
-    </form>
-    </div>
+<div class="row">
+    <div class="column">
+        <form>
+            <div class="container" style="margin-left: 12%;margin-right: 5%;">
+                <h1>User Registration</h1>
+                <p>Please fill in this form to create an account.</p>
+                <hr>
 
-    <div class="col-md-6">
-        <h2 class="text-center">Login User</h2>
-        <form>        
-          <div class="form-group">
-            <label for="emailId">Email Id:</label>
-            <input [(ngModel)]="userLogin.emailId" placeholder="Email Id" name="emailId" class="form-control" id="emailId">
-          </div>
-        
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input [(ngModel)]="userLogin.password" placeholder="Password" name="password" class="form-control" id="password">
-          </div>
-        
-          <button class="btn btn-success" (click)="loginUser()">Login</button>
+                <label for="name"><b>Username</b></label>
+                <input type="text" [(ngModel)]="user.name" placeholder="Enter Name" name="name" class="form-control" id="name">
+
+                <label for="email"><b>Email</b></label>
+                <input type="text" [(ngModel)]="user.emailId" placeholder="Enter Email" name="emailId" class="form-control" id="emailId">
+
+                <label for="password"><b>Password</b></label>
+                <input type="password" [(ngModel)]="user.password" placeholder="Enter Password" name="password" class="form-control"
+                id="password">
+                <button type="submit" class="registerbtn" (click)="registerUser()">Register</button>
+            </div>
+
         </form>
-        </div>
+    </div>
+    <div class="column">
+        <form>
+            <div class="container" style="margin-left: 7%;margin-right: 12%;">
+                <h1>User Login</h1>
+                <p>Please enter your user credentials.</p>
+                <hr>
+                <label for="email"><b>Email</b></label>
+                <input type="text" [(ngModel)]="userLogin.emailId" placeholder="Enter Email" name="emailId"
+                    class="form-control" id="emailId" required>
+
+                <label for="password"><b>Password</b></label>
+                <input type="password" [(ngModel)]="userLogin.password" placeholder="Enter Password" name="password"
+                    class="form-control" id="password" required>
+                <button type="submit" class="registerbtn" (click)="loginUser()">Login</button>
+            </div>
+
+        </form>
+    </div>
+</div>

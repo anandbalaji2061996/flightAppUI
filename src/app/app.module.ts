@@ -13,6 +13,7 @@ import { EditAirlineComponent } from './edit-airline/edit-airline.component';
 import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { ViewAirlineComponent } from './view-airline/view-airline.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HomeComponent } from './home/home.component';
     ViewBookingComponent,
     EditAirlineComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    ViewAirlineComponent
   ],
   imports: [
     BrowserModule,

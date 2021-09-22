@@ -13,6 +13,7 @@ export class FlightbookingComponent implements OnInit {
   ticketCost:any;
   status:boolean;
   message:any;
+  foodMenu:any;
   bookingDetailsDisplay: BookingDetailsFromUI = new BookingDetailsFromUI("","",1,"","","","","",1,"");
   // daysOfWeek: String[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   flightWorkingDays: String;
@@ -32,7 +33,8 @@ export class FlightbookingComponent implements OnInit {
     console.log(flightDetails);
     this.bookingDetailsDisplay.dateofTravel = flightDetails.startDateTime;
     this.bookingDetailsDisplay.flightNumber = flightDetails.flightNumber;
-    this.ticketCost = parseInt(flightDetails.ticketCost);
+    this.foodMenu = flightDetails.meals.split(",");
+    this.ticketCost = flightDetails.ticketCost;
     this.bookingDetailsDisplay.ticketCost = this.ticketCost;
     this.bookingDetailsDisplay.numberOfSeats = 1;
     this.flightWorkingDays = flightDetails.scheduledDays;
@@ -95,7 +97,7 @@ export class FlightbookingComponent implements OnInit {
       this.message = "Please provide " + this.bookingDetailsDisplay.numberOfSeats+" passenger details only in passenger details field!"
     }
 
-    if(!this.status)
+    if(!this.status){
     console.log(this.bookingDetailsDisplay)
     this.http.bookATicket(flightNumber, this.bookingDetailsDisplay).subscribe(
       data => {console.log(data)
@@ -103,6 +105,7 @@ export class FlightbookingComponent implements OnInit {
       this.gotoView();
       }
     ), error => console.log(error)
+    }
   }
 
   loadCost(e) {

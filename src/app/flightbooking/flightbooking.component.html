@@ -3,7 +3,7 @@
     <div class="header-right">
         <a class="active" (click)="gotoFlightBooking()">New Booking</a>
         <a (click)="gotoView()">View Booking</a>
-        <a href="#" style="color: firebrick;">Sign Out</a>
+        <a href="#" style="color: red;font-weight: 500;">Sign Out</a>
     </div>
 </div>
 
@@ -110,12 +110,12 @@
                 <label for="mealOption">Meal Options:</label>
             </div>
             <div class="col-75">
-                <input type="radio" value="Veg" id="mealOption" name="mealOption"
-                    [(ngModel)]="bookingDetailsDisplay.mealOption"> Veg
-                <input type="radio" value="Non-Veg" id="mealOption" name="mealOption"
-                    [(ngModel)]="bookingDetailsDisplay.mealOption"> Non-Veg
-                <input type="radio" value="none" id="mealOption" name="mealOption"
-                    [(ngModel)]="bookingDetailsDisplay.mealOption"> None
+                <span style="color: red;font-size: small">*Extra of Rs 100 for Veg and Rs 200 for Non-Veg will be charged</span>
+                <br/>
+                <span *ngFor="let menu of foodMenu">
+                <input type="radio" value={{menu}} id="mealOption" name="mealOption"
+                    [(ngModel)]="bookingDetailsDisplay.mealOption"> {{menu}}
+                </span>
             </div>
         </div>
 
@@ -134,6 +134,7 @@
                 <label for="passengerDetails">Passenger Details:</label>
             </div>
             <div class="col-75">
+                <span style="color: red;font-size: small">*Passenger Details format [Name-Gender-Age,Name-Gender-Age,...]</span>
                 <textarea placeholder="Write something.." style="height:200px"
                     [(ngModel)]="bookingDetailsDisplay.passengerDetails"
                     placeholder="Name-Gender-Age,Name-Gender-Age,..." name="passengerDetails" class="form-control"

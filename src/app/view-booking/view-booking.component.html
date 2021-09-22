@@ -3,7 +3,7 @@
     <div class="header-right">
       <a (click)="gotoFlightBooking()">New Booking</a>
       <a class="active" (click)="gotoView()">View Booking</a>
-      <a href="#" style="color: firebrick;">Sign Out</a>
+      <a href="#" style="color: red;font-weight: 500;">Sign Out</a>
     </div>
   </div>
 
@@ -14,7 +14,12 @@
         <h3  style="margin-left: 15px; font-size: larger;"
             style="color: green">{{message}}</h3>
       </div>
-    <table class="w3-table-all w3-card-4">
+
+      <div *ngIf="!tableStatus" style="background-color: lightgoldenrodyellow;">
+        <h3  style="margin-left: 15px; font-size: larger;"
+            style="color: indianred">{{message}}</h3>
+      </div>
+    <table class="w3-table-all w3-card-4" *ngIf="tableStatus">
         <thead>
             <tr style="background-color: lightgray;font-size: medium;">
                 <th>PNR No</th>
