@@ -1,6 +1,7 @@
 <div class="header">
     <a class="logo">Flight Booking Application</a>
     <div class="header-right">
+        <a (click)="gotoManageAirline()">Manage Airline</a>
         <a class="active" (click)="gotoRegisterFlight()">Register Flight</a>
         <a (click)="gotoAvailable()">Available Flights</a>
         <a href="#" style="color: red;font-weight: 500;">Sign Out</a>
@@ -29,8 +30,10 @@
                 <label for="airline">Airline:</label>
             </div>
             <div class="col-75">
-                <input type="text" [(ngModel)]="flightDetails.airline" placeholder="Enter Airline" name="airline"
-                    class="form-control" id="airline">
+                <select  [(ngModel)]="flightDetails.airline" placeholder="Choose Airline" name="airline"
+                class="form-control" id="airline">
+                    <option *ngFor="let a of airline" value={{a}}>{{a}}</option>
+                </select>
             </div>
         </div>
 

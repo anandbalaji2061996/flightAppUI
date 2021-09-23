@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminloginComponent } from './adminlogin/adminlogin.component';
 import { AirlineRegistrationComponent } from './airline-registration/airline-registration.component';
+import { AirlineComponent } from './airline/airline.component';
 import { EditAirlineComponent } from './edit-airline/edit-airline.component';
 import { FlightbookingComponent } from './flightbooking/flightbooking.component';
 import { HomeComponent } from './home/home.component';
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'admin', component: AdminloginComponent },
   { path: 'admin/view', component: ViewAirlineComponent },
   { path: 'admin/register', component: AirlineRegistrationComponent},
-  { path: 'admin/edit/:id2', component: EditAirlineComponent}
+  { path: 'admin/edit/:id2', component: EditAirlineComponent},
+  { path: 'admin/registerAirline', component: AirlineComponent}
 ];
 
 @NgModule({

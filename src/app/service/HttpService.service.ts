@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { PassengerDetails } from './BookingForm';
 
 const place: String[] = ["Bangalore", "Chennai", "Coimbatore", "Delhi", "Hyderabad", "Mumbai", "Pune"];
 
@@ -73,6 +74,14 @@ export class BookingDetails {
   ) { }
 }
 
+export class Airline {
+  constructor(
+    public name: string,
+    public address: string,
+    public contactNumber: string,
+  ) { }
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -131,8 +140,28 @@ export class HttpService {
     return this.http.get('http://localhost:8081/user/api/v1.0/flight/booking/history/' + emailId)
   }
 
+  getByPnr(pnr:any): Observable<any> {
+    return this.http.get('http://localhost:8081/user/api/v1.0/flight/ticket/' + pnr)
+  }
+
   deleteBookedTicket(pnr: any) {
     return this.http.delete('http://localhost:8081/user/api/v1.0/flight/booking/cancel/' + pnr, { responseType: 'text' })
   }
 
+  //Airline
+  getAllAirlineDetails() {
+    return this.http.get('http://localhost:8085/admin/api/v1.0/airline/all');
+  }
+
+  registerAirlineDetails(airline: Airline) {
+    return this.http.post('http://localhost:8085/admin/api/v1.0/airline/register', airline);
+  }
+
+  deleteAirlineDetails(name:any) {
+    return this.http.delete('http://localhost:8085/admin/api/v1.0/airline/delete/'+name, {responseType:'text'});
+  }
+
+  getAllAirlineNames() {
+    return this.http.get('http://localhost:8085/admin/api/v1.0/airline/names');
+  }
 }

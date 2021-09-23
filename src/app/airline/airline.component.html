@@ -1,0 +1,65 @@
+<div class="header">
+    <a class="logo">Flight Booking Application</a>
+    <div class="header-right">
+        <a class="active" (click)="gotoManageAirline()">Manage Airline</a>
+        <a (click)="gotoRegisterFlight()">Register Flight</a>
+        <a (click)="gotoAvailable()">Available Flights</a>
+        <a href="#" style="color: red;font-weight: 500;">Sign Out</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="column">
+        <form>
+            <div class="container" style="margin-left: 10%; width: 70%; height: 520px;">
+                <h1>Airline Registration</h1>
+                <p>Please fill the details in this form to register Airline.</p>
+                <hr>
+
+                <label for="name"><b>Airline Name</b></label>
+                <input type="text" [(ngModel)]="airline.name" placeholder="Enter Airline Name" name="name"
+                    class="form-control" id="name">
+
+                <label for="address"><b>Airline Address</b></label>
+                <input type="text" [(ngModel)]="airline.address" placeholder="Enter Address" name="address"
+                    class="form-control" id="address">
+
+                <label for="contactNumber"><b>Airline Contact Number</b></label>
+                <input type="text" [(ngModel)]="airline.contactNumber" placeholder="Enter ContactNumber"
+                    name="contactNumber" class="form-control" id="contactNumber">
+                <button type="submit" class="registerbtn" (click)="registerAirline()" style="margin-top:10px">Register</button>
+            </div>
+
+        </form>
+    </div>
+    <div class="column">
+        <div class="w3-container w3-responsive"
+            style="padding-top: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;margin-right: 10%">
+            <div *ngIf="status" style="background-color: lightgreen;">
+                <h3 style="margin-left: 15px; font-size: larger;" style="color: green">{{message}}</h3>
+            </div>
+
+            <div *ngIf="!tableStatus" style="background-color: lightgoldenrodyellow;">
+                <h3 style="margin-left: 15px; font-size: larger;" style="color: indianred">{{message}}</h3>
+            </div>
+            <table class="w3-table-all w3-card-4 w3-hoverable" *ngIf="tableStatus">
+                <thead>
+                    <tr style="background-color: lightgray;font-size: medium;">
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Contact Number</th>
+                        <th>Delete Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let a of airlines;">
+                        <td>{{a.name}}</td>
+                        <td>{{a.address}}</td>
+                        <td>{{a.contactNumber}}</td>
+                        <td><button class="w3-button w3-red" (click)="deleteAirline(a)">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

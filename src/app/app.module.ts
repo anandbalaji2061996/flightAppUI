@@ -14,6 +14,7 @@ import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { ViewAirlineComponent } from './view-airline/view-airline.component';
+import { AirlineComponent } from './airline/airline.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ViewAirlineComponent } from './view-airline/view-airline.component';
     EditAirlineComponent,
     HeaderComponent,
     HomeComponent,
-    ViewAirlineComponent
+    ViewAirlineComponent,
+    AirlineComponent
   ],
   imports: [
     BrowserModule,

@@ -12,10 +12,13 @@ export class ViewBookingComponent implements OnInit {
   message:any;
   status:boolean = false;
   tableStatus:boolean = true;
+  selectedRecord: any = [];
+  recordStatus:boolean;
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService) { }
   bookingDetails: BookingDetails[];
   ngOnInit(): void {
     this.status = false;
+    this.recordStatus = false;
     this.activatedRoute.paramMap.subscribe(params => {
       var id = params.get('id1');
       this.emailId = id;
@@ -34,7 +37,17 @@ export class ViewBookingComponent implements OnInit {
     }, error => console.log(error));
   }
 
+  getDetails(book: BookingDetails) {
+    console.log(book)
+    this.recordStatus = true;
+    this.http.getByPnr(book.pnr).subscribe(data => {
+      console.log(data)
+      this.selectedRecord = data;
+    })
+  }
+
   deleteTicket(book: BookingDetails) {
+    this.recordStatus = false;
     console.log(book.pnr)
     this.http.deleteBookedTicket(book.pnr).subscribe(data => {
       console.log(data);

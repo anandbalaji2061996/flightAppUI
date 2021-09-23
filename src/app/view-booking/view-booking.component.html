@@ -1,25 +1,24 @@
 <div class="header">
     <a class="logo">Flight Booking Application</a>
     <div class="header-right">
-      <a (click)="gotoFlightBooking()">New Booking</a>
-      <a class="active" (click)="gotoView()">View Booking</a>
-      <a href="#" style="color: red;font-weight: 500;">Sign Out</a>
+        <a (click)="gotoFlightBooking()">New Booking</a>
+        <a class="active" (click)="gotoView()">View Booking</a>
+        <a href="#" style="color: red;font-weight: 500;">Sign Out</a>
     </div>
-  </div>
+</div>
 
-  
 
-  <div class="w3-container w3-responsive" style="padding-top: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+<div class="w3-container w3-responsive"
+    style="padding-top: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
     <div *ngIf="status" style="background-color: lightgreen;">
-        <h3  style="margin-left: 15px; font-size: larger;"
-            style="color: green">{{message}}</h3>
-      </div>
+        <h3 style="margin-left: 15px; font-size: larger;" style="color: green">{{message}}</h3>
+    </div>
 
-      <div *ngIf="!tableStatus" style="background-color: lightgoldenrodyellow;">
-        <h3  style="margin-left: 15px; font-size: larger;"
-            style="color: indianred">{{message}}</h3>
-      </div>
-    <table class="w3-table-all w3-card-4" *ngIf="tableStatus">
+    <div *ngIf="!tableStatus" style="background-color: lightgoldenrodyellow;">
+        <h3 style="margin-left: 15px; font-size: larger;" style="color: indianred">{{message}}</h3>
+    </div>
+    <table class="w3-table-all w3-card-4 w3-hoverable" *ngIf="tableStatus">
         <thead>
             <tr style="background-color: lightgray;font-size: medium;">
                 <th>PNR No</th>
@@ -36,7 +35,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let book of bookingDetails;">
+            <tr *ngFor="let book of bookingDetails;" (click)="getDetails(book)">
                 <td>{{book.pnr}}</td>
                 <td>{{book.flightNumber}}</td>
                 <td>{{book.name}}</td>
@@ -52,3 +51,65 @@
         </tbody>
     </table>
 </div>
+
+<div class="w3-container w3-responsive"
+    style="padding-top: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;width: 50%;"
+    *ngIf="recordStatus">
+    <h2>Ticket Details</h2>
+    <table class="w3-table-all w3-card-4 w3-bordered tableStyle" *ngFor="let record of selectedRecord">
+        <tr class="trStyle">
+            <th class="thStyle">PNR Number</th>
+            <td class="tdStyle" colspan="3">{{record.pnr}}</td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Flight Number</th>
+            <td class="tdStyle" colspan="3">{{record.flightNumber}}</td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Name</th>
+            <td class="tdStyle" colspan="3">{{record.name}}</td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Booking EmailId</th>
+            <td class="tdStyle" colspan="3">{{record.emailId}}</td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Number of Seats</th>
+            <td class="tdStyle" colspan="3">{{record.numberOfSeats}}</td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Seat Type</th>
+            <td class="tdStyle" colspan="3">{{record.seatType}}</td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Meal Option</th>
+            <td class="tdStyle" colspan="3">{{record.mealOption}}</td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Date of Travel</th>
+            <td class="tdStyle" colspan="3">{{record.dateofTravel}}</td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Travel Passenger Details</th>
+            <td class="tdStyle">
+                <table class="w3-table w3-bordered">
+                    <tr class="trStyle">
+                        <th class="thStyle">Name</th>
+                        <th class="thStyle">Gender</th>
+                        <th class="thStyle">Age</th>
+                    </tr>
+                    <tr class="trStyle" *ngFor="let passenger of record.passengerDetails">
+                        <td class="tdStyle">{{passenger.name}}</td>
+                        <td class="tdStyle">{{passenger.gender}}</td>
+                        <td class="tdStyle">{{passenger.age}}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Total Ticket Cost</th>
+            <td class="tdStyle">{{record.ticketCost}}</td>
+        </tr>
+    </table>
+</div>
+<br />

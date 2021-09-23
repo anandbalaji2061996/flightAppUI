@@ -53,3 +53,23 @@ body {
     float: none;
   }
 }
+
+.tableStyle {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.trStyle {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.thStyle {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.tdStyle {
+  border: 1px solid black;
+  border-collapse: collapse;
+}

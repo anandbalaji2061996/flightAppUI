@@ -15,6 +15,7 @@ export class EditAirlineComponent implements OnInit {
   flightDetails: any;
   flightWorkingDays: String;
   places : any;
+  airline: any;
   constructor(private router: Router, private http: HttpService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -25,6 +26,7 @@ export class EditAirlineComponent implements OnInit {
       this.flightNo = id;
     });
     this.places = this.http.getPlace();
+    this.http.getAllAirlineNames().subscribe(data => this.airline = data), error => console.log(error);
     this.getFlightDetails(this.flightNo);    
   }
 

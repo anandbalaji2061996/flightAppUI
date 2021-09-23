@@ -78,4 +78,8 @@ export class ViewAirlineComponent implements OnInit {
   gotoRegisterFlight() {
     this.router.navigate(['/admin/register']);
   }
+
+  gotoManageAirline() {
+    this.router.navigate(['/admin/registerAirline'])
+  }
 }

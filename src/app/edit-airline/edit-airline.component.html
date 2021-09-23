@@ -29,8 +29,10 @@
                 <label for="airline">Airline:</label>
             </div>
             <div class="col-75">
-                <input type="text" [(ngModel)]="flightDetails.airline" placeholder="Enter Airline" name="airline"
+                <select [(ngModel)]="flightDetails.airline" placeholder="Enter Airline" name="airline"
                     class="form-control" id="airline">
+                    <option *ngFor="let a of airline" value={{a}}>{{a}}</option>
+                </select>
             </div>
         </div>
 
@@ -129,10 +131,13 @@
                 <label for="meals">Meal Options:</label>
             </div>
             <div class="col-75">
-                <input class="w3-radio" type="radio" value="Veg" id="meals" name="meals" [(ngModel)]="flightDetails.meals"> Veg <br />
-                <input class="w3-radio" type="radio" value="Non-Veg" id="mealOption" name="meals" [(ngModel)]="flightDetails.meals">
+                <input class="w3-radio" type="radio" value="Veg" id="meals" name="meals"
+                    [(ngModel)]="flightDetails.meals"> Veg <br />
+                <input class="w3-radio" type="radio" value="Non-Veg" id="mealOption" name="meals"
+                    [(ngModel)]="flightDetails.meals">
                 Non-Veg <br />
-                <input class="w3-radio" type="radio" value="Both" id="meals" name="meals" [(ngModel)]="flightDetails.meals"> Both
+                <input class="w3-radio" type="radio" value="Both" id="meals" name="meals"
+                    [(ngModel)]="flightDetails.meals"> Both
             </div>
         </div>
 

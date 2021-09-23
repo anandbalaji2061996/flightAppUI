@@ -14,12 +14,14 @@ export class AirlineRegistrationComponent implements OnInit {
   // daysOfWeek: String[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   flightWorkingDays: String;
   places: any;
+  airline: any;
   constructor(private router: Router, private http: HttpService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.status = false;
     this.message = "";
     this.places = this.http.getPlace();
+    this.http.getAllAirlineNames().subscribe(data => this.airline = data), error => console.log(error);
   }
 
   bookAFlight() {
@@ -85,5 +87,9 @@ export class AirlineRegistrationComponent implements OnInit {
 
   gotoAvailable() {
     this.router.navigate(['/admin/view']);
+  }
+
+  gotoManageAirline() {
+    this.router.navigate(['/admin/registerAirline'])
   }
 }
