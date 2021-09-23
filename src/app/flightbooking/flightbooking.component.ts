@@ -9,11 +9,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class FlightbookingComponent implements OnInit {
 
-  flightDetails: FlightDetails[];
+  flightDetails: any;
   ticketCost:any;
   status:boolean;
   message:any;
   foodMenu:any;
+  fromPlace: any;
+  toPlace: any;
+  places: any;
+  tableStatus: boolean = false;
   bookingDetailsDisplay: BookingDetailsFromUI = new BookingDetailsFromUI("","",1,"","","","","",1,"");
   // daysOfWeek: String[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   flightWorkingDays: String;
@@ -25,7 +29,13 @@ export class FlightbookingComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(params => {
       var id = params.get('id1');
       this.bookingDetailsDisplay.emailId = id;
-    });    
+    });   
+    this.places = this.http.getPlace();
+    this.getAllAirline(); 
+  }
+
+  getAllAirline() {
+    this.tableStatus = true;
     this.http.getAllAirline().subscribe(data => {this.flightDetails = data}, error => console.log(error));
   }
 
@@ -33,11 +43,35 @@ export class FlightbookingComponent implements OnInit {
     console.log(flightDetails);
     this.bookingDetailsDisplay.dateofTravel = flightDetails.startDateTime;
     this.bookingDetailsDisplay.flightNumber = flightDetails.flightNumber;
-    this.foodMenu = flightDetails.meals.split(",");
+    if(flightDetails.meals == "Both")
+      this.foodMenu = ["Veg","Non-Veg"]
+    else if(flightDetails.meals == "Veg")
+      this.foodMenu = ["Veg"];
+    else 
+      this.foodMenu = ["Non-Veg"];    
     this.ticketCost = flightDetails.ticketCost;
     this.bookingDetailsDisplay.ticketCost = this.ticketCost;
     this.bookingDetailsDisplay.numberOfSeats = 1;
     this.flightWorkingDays = flightDetails.scheduledDays;
+  }
+
+  getSearch() {
+    if(this.fromPlace== undefined || this.toPlace == undefined) {
+      console.log(this.fromPlace + " " + this.toPlace)
+      this.getAllAirline();
+    } else {
+      this.http.searchFlight(this.fromPlace, this.toPlace).subscribe(
+        data => {
+          console.log(this.fromPlace + " " + this.toPlace)
+          this.fromPlace = undefined;
+          this.toPlace = undefined;
+          this.flightDetails = data;
+          if(this.flightDetails.length == 0) {
+            this.tableStatus = false;
+            this.message = "No Records Found!"
+          }
+        }, error => console.log(error));
+    }
   }
 
   bookATicket(flightNumber:any) {

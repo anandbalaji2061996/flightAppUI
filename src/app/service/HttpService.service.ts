@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+const place: String[] = ["Bangalore", "Chennai", "Coimbatore", "Delhi", "Hyderabad", "Mumbai", "Pune"];
+
 export class UserLoginCredentials {
   constructor(
     public emailId: string,
@@ -79,6 +81,10 @@ export class HttpService {
 
   constructor(public http: HttpClient) { }
 
+  getPlace() {
+    return place;
+  }
+
   //GetMethod
   getAllAirline(): Observable<any> {
     return this.http.get('http://localhost:8082/admin/api/v1.0/flight/airline');
@@ -117,8 +123,8 @@ export class HttpService {
     return this.http.delete('http://localhost:8082/admin/api/v1.0/flight/airline/delete/' + flightNumber, { responseType: 'text' })
   }
 
-  searchFlight(airline:any) {
-    return this.http.get('http://localhost:8082/admin/api/v1.0/flight/airline/'+airline)
+  searchFlight(fromPlace:any, toPlace:any) {
+    return this.http.get('http://localhost:8082/admin/api/v1.0/flight/airline/fromPlace/'+fromPlace+"/toPlace/"+toPlace)
   }
 
   getBookedTicket(emailId: any): Observable<any> {

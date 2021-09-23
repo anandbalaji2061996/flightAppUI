@@ -1,0 +1,7 @@
+div.background {
+    background-image: url("C:\Users\User\Documents\UI\FlightApp\src\assets\70410022843af70ed5e611ed10ebffea.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    min-height: 670px;
+}

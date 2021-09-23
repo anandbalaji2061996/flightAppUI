@@ -42,7 +42,7 @@ body {
   float: right;
 }
   
-  input[type=text], input[type=date],input[type=number], textarea {
+  input[type=text], input[type=date],input[type=number], textarea, select {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;

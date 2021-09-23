@@ -14,6 +14,7 @@ export class EditAirlineComponent implements OnInit {
   flightNo: any;
   flightDetails: any;
   flightWorkingDays: String;
+  places : any;
   constructor(private router: Router, private http: HttpService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -23,6 +24,7 @@ export class EditAirlineComponent implements OnInit {
       var id = params.get('id2');
       this.flightNo = id;
     });
+    this.places = this.http.getPlace();
     this.getFlightDetails(this.flightNo);    
   }
 
@@ -75,10 +77,6 @@ export class EditAirlineComponent implements OnInit {
       this.message = "Please enter the scheduled days of the flight";
     }
 
-    if (this.flightDetails.meals == "Both") {
-      this.flightDetails.meals = "Veg,Non-Veg"
-    }
-
     if (!this.status) {
       console.log(this.flightDetails)
       this.http.updateInventory(this.flightNo,this.flightDetails).subscribe(
@@ -96,7 +94,7 @@ export class EditAirlineComponent implements OnInit {
   }
 
   gotoRegisterFlight() {
-    this.router.navigate([this.router.url]);
+    this.router.navigate(["/admin/register"]);
   }
 
   gotoAvailable() {

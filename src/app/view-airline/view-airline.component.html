@@ -7,9 +7,33 @@
     </div>
 </div>
 
+<div>
+
+</div>
+
 <div class="w3-container w3-responsive"
     style="padding-top: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-    <div *ngIf="status" style="background-color: lightgreen;">
+    <div class="w3-row-padding" style="margin-left:30%">
+        <div style="float: left;">
+          <label style="font-weight: bold; font-size: large;">From Place</label>
+          <select [(ngModel)]="fromPlace" placeholder="Enter From Place" name="fromPlace"
+                    class="form-control" id="fromPlace">
+                    <option *ngFor="let place of places" value={{place}}>{{place}}</option>
+                </select>
+        </div>
+        <div style="float: left; margin-left: 10px;">
+          <label  style="font-weight: bold; font-size: large;">To Place</label>
+          <select [(ngModel)]="toPlace" placeholder="Enter To Place" name="toPlace"
+                    class="form-control" id="toPlace">
+                    <option *ngFor="let place of places" value={{place}}>{{place}}</option>
+        </select>
+        </div>
+        <div style="float: left;margin-left: 10px; margin-top: 45px">
+            <button class="button" style="background-color: steelblue;" type="submit" (click)="getSearch()"> Search </button>
+          </div>
+      </div>
+      <br/>
+    <div *ngIf="status" style="background-color: rgb(48, 61, 48);">
         <h3  style="margin-left: 15px; font-size: larger;"
             style="color: green">{{message}}</h3>
       </div>
@@ -18,7 +42,7 @@
         <h3  style="margin-left: 15px; font-size: larger;"
             style="color: indianred">{{message}}</h3>
       </div>
-    <table class="w3-table-all w3-card-4 w3-hoverable">
+    <table class="w3-table-all w3-card-4 w3-hoverable" *ngIf="tableStatus">
         <thead>
             <tr style="background-color: lightgray;font-size: medium;">
                 <th>Flight Number</th>

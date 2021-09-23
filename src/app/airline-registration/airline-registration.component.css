@@ -42,7 +42,7 @@ body {
   float: right;
 }
   
-  input[type=text], input[type=date], input[type=number], input[type=time] {
+  input[type=text], input[type=date], input[type=number], input[type=time], select {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;

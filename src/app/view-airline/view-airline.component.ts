@@ -8,9 +8,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ViewAirlineComponent implements OnInit {
 
-  flightDetails: FlightDetails[];
+  flightDetails: any;
   status: boolean;
   tableStatus: boolean = true;
+  fromPlace: any;
+  toPlace: any;
+  places: any;
   message: any;
   constructor(private router: Router, private http: HttpService, private activatedRoute: ActivatedRoute) { }
 
@@ -18,10 +21,12 @@ export class ViewAirlineComponent implements OnInit {
     this.status = false;
     this.tableStatus = true;
     this.message = "";
+    this.places = this.http.getPlace();
     this.getAllAirline();
   }
 
   getAllAirline() {
+    this.tableStatus = true;
     this.http.getAllAirline().subscribe(
       data => { 
         this.flightDetails = data;
@@ -30,6 +35,25 @@ export class ViewAirlineComponent implements OnInit {
           this.message = "No Records Found!"
         }
        }, error => console.log(error));
+  }
+
+  getSearch() {
+    if(this.fromPlace== undefined || this.toPlace == undefined) {
+      console.log(this.fromPlace + " " + this.toPlace)
+      this.getAllAirline();
+    } else {
+      this.http.searchFlight(this.fromPlace, this.toPlace).subscribe(
+        data => {
+          console.log(this.fromPlace + " " + this.toPlace)
+          this.fromPlace = undefined;
+          this.toPlace = undefined;
+          this.flightDetails = data;
+          if(this.flightDetails.length == 0) {
+            this.tableStatus = false;
+            this.message = "No Records Found!"
+          }
+         }, error => console.log(error));
+    }
   }
 
   deleteFlight(flightDetails : FlightDetails) {

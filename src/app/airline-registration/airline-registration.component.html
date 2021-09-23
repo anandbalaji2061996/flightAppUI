@@ -39,8 +39,10 @@
                 <label for="fromPlace">Form Place:</label>
             </div>
             <div class="col-75">
-                <input type="text" [(ngModel)]="flightDetails.fromPlace" placeholder="Enter From Place" name="fromPlace"
-                    class="form-control" id="fromPlace">
+                <select id="country" name="country" [(ngModel)]="flightDetails.fromPlace"
+                    placeholder="Choose From Place" class="form-control" id="fromPlace">
+                    <option *ngFor="let place of places" value={{place}}>{{place}}</option>
+                </select>
             </div>
         </div>
 
@@ -48,9 +50,12 @@
             <div class="col-25">
                 <label for="toPlace">To Place:</label>
             </div>
+
             <div class="col-75">
-                <input type="text" [(ngModel)]="flightDetails.toPlace" placeholder="Enter To Place" name="toPlace"
+                <select id="country" name="country" [(ngModel)]="flightDetails.toPlace" placeholder="Choose To Place"
                     class="form-control" id="toPlace">
+                    <option *ngFor="let place of places" value={{place}}>{{place}}</option>
+                </select>
             </div>
         </div>
 
@@ -79,11 +84,11 @@
                 <label for="scheduledDays">Scheduled Days:</label>
             </div>
             <div class="col-75">
-                <input type="radio" value="Daily" id="sescheduledDaysatType" name="scheduledDays"
-                    [(ngModel)]="flightDetails.scheduledDays"> Daily <br/>
-                <input type="radio" value="WeekDays" id="scheduledDays" name="scheduledDays"
-                    [(ngModel)]="flightDetails.scheduledDays"> WeekDays [Monday - Friday] <br/>
-                <input type="radio" value="WeekEnd" id="scheduledDays" name="scheduledDays"
+                <input class="w3-radio" type="radio" value="Daily" id="sescheduledDaysatType" name="scheduledDays"
+                    [(ngModel)]="flightDetails.scheduledDays"> Daily <br />
+                <input class="w3-radio" type="radio" value="WeekDays" id="scheduledDays" name="scheduledDays"
+                    [(ngModel)]="flightDetails.scheduledDays"> WeekDays [Monday - Friday] <br />
+                <input class="w3-radio" type="radio" value="WeekEnd" id="scheduledDays" name="scheduledDays"
                     [(ngModel)]="flightDetails.scheduledDays"> WeekEnd [Saturday, Sunday]
             </div>
         </div>
@@ -125,12 +130,10 @@
                 <label for="meals">Meal Options:</label>
             </div>
             <div class="col-75">
-                <input type="radio" value="Veg" id="meals" name="meals"
-                    [(ngModel)]="flightDetails.meals"> Veg <br/>
-                <input type="radio" value="Non-Veg" id="mealOption" name="meals"
-                    [(ngModel)]="flightDetails.meals"> Non-Veg <br/>
-                <input type="radio" value="Both" id="meals" name="meals"
-                    [(ngModel)]="flightDetails.meals"> Both
+                <input class="w3-radio" type="radio" value="Veg" id="meals" name="meals" [(ngModel)]="flightDetails.meals"> Veg <br />
+                <input class="w3-radio" type="radio" value="Non-Veg" id="mealOption" name="meals" [(ngModel)]="flightDetails.meals">
+                Non-Veg <br />
+                <input class="w3-radio" type="radio" value="Both" id="meals" name="meals" [(ngModel)]="flightDetails.meals"> Both
             </div>
         </div>
 

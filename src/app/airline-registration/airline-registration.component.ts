@@ -13,11 +13,13 @@ export class AirlineRegistrationComponent implements OnInit {
   flightDetails: FlightDetails = new FlightDetails("", "", "", "", "", "", "", 1, 1, 1, 1, "");
   // daysOfWeek: String[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   flightWorkingDays: String;
+  places: any;
   constructor(private router: Router, private http: HttpService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.status = false;
     this.message = "";
+    this.places = this.http.getPlace();
   }
 
   bookAFlight() {
