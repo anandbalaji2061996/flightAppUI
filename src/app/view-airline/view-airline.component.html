@@ -14,8 +14,15 @@
 
 <div class="w3-container w3-responsive"
     style="padding-top: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-    <div class="w3-row-padding" style="margin-left:30%">
+    <div class="w3-row-padding" style="margin-left:25%">
         <div style="float: left;">
+          <label style="font-weight: bold; font-size: large;">Airline Name</label>
+          <select [(ngModel)]="airlineName" placeholder="Airline Name" name="airlineName"
+                    class="form-control" id="airlineName">
+                    <option *ngFor="let a of airlines" value={{a}}>{{a}}</option>
+                </select>
+        </div>
+        <div style="float: left; margin-left: 10px;">
           <label style="font-weight: bold; font-size: large;">From Place</label>
           <select [(ngModel)]="fromPlace" placeholder="Enter From Place" name="fromPlace"
                     class="form-control" id="fromPlace">

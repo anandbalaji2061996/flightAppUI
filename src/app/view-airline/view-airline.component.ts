@@ -15,6 +15,8 @@ export class ViewAirlineComponent implements OnInit {
   toPlace: any;
   places: any;
   message: any;
+  airlineName: any;
+  airlines: any;
   constructor(private router: Router, private http: HttpService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -22,6 +24,7 @@ export class ViewAirlineComponent implements OnInit {
     this.tableStatus = true;
     this.message = "";
     this.places = this.http.getPlace();
+    this.http.getAllAirlineNames().subscribe(data => this.airlines = data),error => console.log(error)
     this.getAllAirline();
   }
 
@@ -38,15 +41,18 @@ export class ViewAirlineComponent implements OnInit {
   }
 
   getSearch() {
-    if(this.fromPlace== undefined || this.toPlace == undefined) {
-      console.log(this.fromPlace + " " + this.toPlace)
+    if(this.fromPlace == undefined && this.toPlace == undefined && this.airlineName == undefined) {
+      console.log(this.fromPlace + " " + this.toPlace + " " + this.airlineName)
       this.getAllAirline();
-    } else {
-      this.http.searchFlight(this.fromPlace, this.toPlace).subscribe(
+    } else if(this.fromPlace == undefined || this.toPlace == undefined || this.airlineName == undefined) {
+      alert("Please provide Airline Name, From place and To place");
+    } else {      
+      this.http.searchByAirlineAndFromPlaceAndToPlace(this.airlineName, this.fromPlace, this.toPlace).subscribe(
         data => {
           console.log(this.fromPlace + " " + this.toPlace)
           this.fromPlace = undefined;
           this.toPlace = undefined;
+          this.airlineName = undefined;
           this.flightDetails = data;
           if(this.flightDetails.length == 0) {
             this.tableStatus = false;

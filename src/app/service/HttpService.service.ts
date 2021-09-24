@@ -164,4 +164,8 @@ export class HttpService {
   getAllAirlineNames() {
     return this.http.get('http://localhost:8085/admin/api/v1.0/airline/names');
   }
+
+  searchByAirlineAndFromPlaceAndToPlace(airline:any, fromPlace:any, toPlace:any) {
+    return this.http.get('http://localhost:8082/admin/api/v1.0/flight/airline/airlineName/'+airline+'/fromPlace/'+fromPlace+'/toPlace/'+toPlace);
+  }
 }
