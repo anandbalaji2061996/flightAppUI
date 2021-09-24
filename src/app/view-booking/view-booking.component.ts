@@ -27,6 +27,7 @@ export class ViewBookingComponent implements OnInit {
   }
 
   getBookedDetails(emailId) {
+    this.recordStatus = false;
     this.http.getBookedTicket(emailId).subscribe(data => {
       console.log(data);
       this.bookingDetails = data;

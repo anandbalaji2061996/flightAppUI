@@ -12,7 +12,7 @@ import { ViewBookingComponent } from './view-booking/view-booking.component';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, },
   { path: 'user', component: UserloginComponent },
   { path: 'user/:id1/flightBooking', component: FlightbookingComponent },
   { path: 'user/:id1/flightBooking/view', component: ViewBookingComponent },

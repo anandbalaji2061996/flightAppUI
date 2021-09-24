@@ -82,11 +82,15 @@ export class Airline {
   ) { }
 }
 
+  const BASEURL_USER: string = "http://localhost:8091/api1/v1.0/user/flight/";
+  const BASEURL_ADMIN: string = "http://localhost:8092/api2/v1.0/admin/flight/";
+  const BASEURL_AIRLINE: string = "http://localhost:8093/api3/v1.0/admin/airline/";
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
+
 
   constructor(public http: HttpClient) { }
 
@@ -94,78 +98,79 @@ export class HttpService {
     return place;
   }
 
-  //GetMethod
-  getAllAirline(): Observable<any> {
-    return this.http.get('http://localhost:8082/admin/api/v1.0/flight/airline');
-  }
-
-  getAirlineByFlightNumber(flightNumber: any) {
-    return this.http.get('http://localhost:8082/admin/api/v1.0/flight/airline/flightNumber/' + flightNumber, {responseType : 'json'});
-  }
-
+  //User
   loginUser(userLoginDetails: UserLoginCredentials) {
-    return this.http.post('http://localhost:8081/user/api/v1.0/flight/login', userLoginDetails, { responseType: 'text' });
+    return this.http.post(BASEURL_USER + 'login', userLoginDetails, { responseType: 'text' });
   }
 
-  loginAdmin(adminLoginDetails: AdminLoginCredentials) {
-    return this.http.post('http://localhost:8082/admin/api/v1.0/flight/login', adminLoginDetails, { responseType: 'text' });
-  }
-
-  //Post Method
   registerUser(userDetails: UserDetails) {
-    return this.http.post('http://localhost:8081/user/api/v1.0/flight/register', userDetails, { responseType: 'text' });
+    return this.http.post(BASEURL_USER + 'register', userDetails, { responseType: 'text' });
   }
 
   bookATicket(flightNumber: any, bookingDetailsDisplay: BookingDetailsFromUI) {
-    return this.http.post('http://localhost:8081/user/api/v1.0/flight/booking/' + flightNumber, bookingDetailsDisplay, { responseType: 'json' });
-  }
-
-  registerAirline(flightDetails: FlightDetails) {
-    return this.http.post('http://localhost:8082/admin/api/v1.0/flight/airline/register', flightDetails);
-  }
-
-  updateInventory(flightNumber: any,flightDetails: FlightDetails) {
-    return this.http.put('http://localhost:8082/admin/api/v1.0/flight/airline/inventory/add/'+flightNumber, flightDetails);
-  }
-
-  deleteFlight(flightNumber: any) {
-    return this.http.delete('http://localhost:8082/admin/api/v1.0/flight/airline/delete/' + flightNumber, { responseType: 'text' })
-  }
-
-  searchFlight(fromPlace:any, toPlace:any) {
-    return this.http.get('http://localhost:8082/admin/api/v1.0/flight/airline/fromPlace/'+fromPlace+"/toPlace/"+toPlace)
+    return this.http.post(BASEURL_USER + 'booking/' + flightNumber, bookingDetailsDisplay, { responseType: 'json' });
   }
 
   getBookedTicket(emailId: any): Observable<any> {
-    return this.http.get('http://localhost:8081/user/api/v1.0/flight/booking/history/' + emailId)
+    return this.http.get(BASEURL_USER + 'booking/history/' + emailId)
   }
 
   getByPnr(pnr:any): Observable<any> {
-    return this.http.get('http://localhost:8081/user/api/v1.0/flight/ticket/' + pnr)
+    return this.http.get(BASEURL_USER + 'ticket/' + pnr)
   }
 
   deleteBookedTicket(pnr: any) {
-    return this.http.delete('http://localhost:8081/user/api/v1.0/flight/booking/cancel/' + pnr, { responseType: 'text' })
+    return this.http.delete(BASEURL_USER + 'booking/cancel/' + pnr, { responseType: 'text' })
+  }
+
+  //Admin
+
+  getAllAirline(): Observable<any> {
+    return this.http.get(BASEURL_ADMIN + 'airline');
+  }
+
+  getAirlineByFlightNumber(flightNumber: any) {
+    return this.http.get(BASEURL_ADMIN + 'airline/flightNumber/' + flightNumber, {responseType : 'json'});
+  }
+
+  loginAdmin(adminLoginDetails: AdminLoginCredentials) {
+    return this.http.post(BASEURL_ADMIN +'login', adminLoginDetails, { responseType: 'text' });
+  }
+
+  registerAirline(flightDetails: FlightDetails) {
+    return this.http.post(BASEURL_ADMIN+ 'airline/register', flightDetails);
+  }
+
+  updateInventory(flightNumber: any,flightDetails: FlightDetails) {
+    return this.http.put(BASEURL_ADMIN +'airline/inventory/add/'+flightNumber, flightDetails);
+  }
+
+  deleteFlight(flightNumber: any) {
+    return this.http.delete(BASEURL_ADMIN + 'airline/delete/' + flightNumber, { responseType: 'text' })
+  }
+
+  searchFlight(fromPlace:any, toPlace:any) {
+    return this.http.get(BASEURL_ADMIN + 'airline/fromPlace/'+fromPlace+"/toPlace/"+toPlace)
+  }
+
+  searchByAirlineAndFromPlaceAndToPlace(airline:any, fromPlace:any, toPlace:any) {
+    return this.http.get(BASEURL_ADMIN + 'airline/airlineName/'+airline+'/fromPlace/'+fromPlace+'/toPlace/'+toPlace);
   }
 
   //Airline
   getAllAirlineDetails() {
-    return this.http.get('http://localhost:8085/admin/api/v1.0/airline/all');
+    return this.http.get(BASEURL_AIRLINE + 'all');
   }
 
   registerAirlineDetails(airline: Airline) {
-    return this.http.post('http://localhost:8085/admin/api/v1.0/airline/register', airline);
+    return this.http.post(BASEURL_AIRLINE + 'register', airline);
   }
 
   deleteAirlineDetails(name:any) {
-    return this.http.delete('http://localhost:8085/admin/api/v1.0/airline/delete/'+name, {responseType:'text'});
+    return this.http.delete(BASEURL_AIRLINE + 'delete/'+name, {responseType:'text'});
   }
 
   getAllAirlineNames() {
-    return this.http.get('http://localhost:8085/admin/api/v1.0/airline/names');
-  }
-
-  searchByAirlineAndFromPlaceAndToPlace(airline:any, fromPlace:any, toPlace:any) {
-    return this.http.get('http://localhost:8082/admin/api/v1.0/flight/airline/airlineName/'+airline+'/fromPlace/'+fromPlace+'/toPlace/'+toPlace);
+    return this.http.get(BASEURL_AIRLINE + 'names');
   }
 }

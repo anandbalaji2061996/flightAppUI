@@ -103,4 +103,8 @@ export class EditAirlineComponent implements OnInit {
     this.router.navigate(['/admin/view']);
   }
 
+  gotoManageAirline() {
+    this.router.navigate(["/admin/registerAirline"]);
+  }
+
 }
