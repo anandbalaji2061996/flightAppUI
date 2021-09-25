@@ -18,7 +18,8 @@ export class FlightbookingComponent implements OnInit {
   toPlace: any;
   places: any;
   tableStatus: boolean = false;
-  bookingDetailsDisplay: BookingDetailsFromUI = new BookingDetailsFromUI("","",1,"","","","","",1,"");
+  discount: number;
+  bookingDetailsDisplay: BookingDetailsFromUI = new BookingDetailsFromUI("","",1,"","","","","",1,"","");
   // daysOfWeek: String[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   flightWorkingDays: String;
   constructor(private router: Router, private http: HttpService, private activatedRoute: ActivatedRoute) { }
@@ -26,6 +27,7 @@ export class FlightbookingComponent implements OnInit {
   ngOnInit(): void {
     this.status = false;
     this.message = "";
+    this.discount = 0;
     this.activatedRoute.paramMap.subscribe(params => {
       var id = params.get('id1');
       this.bookingDetailsDisplay.emailId = id;
@@ -43,6 +45,8 @@ export class FlightbookingComponent implements OnInit {
     console.log(flightDetails);
     this.bookingDetailsDisplay.dateofTravel = flightDetails.startDateTime;
     this.bookingDetailsDisplay.flightNumber = flightDetails.flightNumber;
+    this.bookingDetailsDisplay.discountCode = flightDetails.discountCode;
+    this.discount = flightDetails.discount;
     if(flightDetails.meals == "Both")
       this.foodMenu = ["Veg","Non-Veg"]
     else if(flightDetails.meals == "Veg")
@@ -98,12 +102,6 @@ export class FlightbookingComponent implements OnInit {
       this.status = true;
       this.message = "Please enter the passenger details in the format Name-Gender-Age,Name-Gender-Age,..."
     }
-    this.bookingDetailsDisplay.ticketCost = this.bookingDetailsDisplay.ticketCost*this.bookingDetailsDisplay.numberOfSeats;
-    if(this.bookingDetailsDisplay.mealOption == "Non-Veg") {
-      this.bookingDetailsDisplay.ticketCost += 200*this.bookingDetailsDisplay.numberOfSeats 
-    } else if(this.bookingDetailsDisplay.mealOption == "Veg"){
-      this.bookingDetailsDisplay.ticketCost += 100*this.bookingDetailsDisplay.numberOfSeats 
-    }
     var d = new Date(this.bookingDetailsDisplay.dateofTravel).getDay();
     if(this.flightWorkingDays == "WeekEnd") {
       if(d == 0 || d == 6) {
@@ -130,7 +128,13 @@ export class FlightbookingComponent implements OnInit {
       this.status = true;
       this.message = "Please provide " + this.bookingDetailsDisplay.numberOfSeats+" passenger details only in passenger details field!"
     }
-
+    this.bookingDetailsDisplay.ticketCost = this.bookingDetailsDisplay.ticketCost*this.bookingDetailsDisplay.numberOfSeats;
+    this.bookingDetailsDisplay.ticketCost = this.bookingDetailsDisplay.ticketCost - (this.bookingDetailsDisplay.ticketCost * this.discount/100);
+    if(this.bookingDetailsDisplay.mealOption == "Non-Veg") {
+      this.bookingDetailsDisplay.ticketCost += 200*this.bookingDetailsDisplay.numberOfSeats 
+    } else if(this.bookingDetailsDisplay.mealOption == "Veg"){
+      this.bookingDetailsDisplay.ticketCost += 100*this.bookingDetailsDisplay.numberOfSeats 
+    }
     if(!this.status){
     console.log(this.bookingDetailsDisplay)
     this.http.bookATicket(flightNumber, this.bookingDetailsDisplay).subscribe(

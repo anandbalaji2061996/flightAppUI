@@ -47,6 +47,7 @@
                 <th>Non-Business Class Seats</th>
                 <th>Rows</th>
                 <th>Meals</th>
+                <th>Discount Code</th>
                 <th>Ticket Cost</th>
             </tr>
         </thead>
@@ -63,6 +64,7 @@
                 <td>{{flight.nosOfNonBusinessClassSeats}}</td>
                 <td>{{flight.nosOfRows}}</td>
                 <td>{{flight.meals}}</td>
+                <th>{{flight.discountCode}}</th>
                 <td>{{flight.ticketCost}}</td>
             </tr>
         </tbody>
@@ -175,6 +177,16 @@
             <div class="col-75">
                 <input type="date" id="start" name="trip-start" value="" id="dateofTravel"
                     [(ngModel)]="bookingDetailsDisplay.dateofTravel" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-25">
+                <label for="discountCode">Discount Code:</label>
+            </div>
+            <div class="col-75">
+                <input type="text" [(ngModel)]="bookingDetailsDisplay.discountCode" placeholder="Discount Code"
+                    name="discountCode" class="form-control" id="discountCode" readonly>
             </div>
         </div>
 

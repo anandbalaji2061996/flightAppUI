@@ -40,7 +40,9 @@ export class FlightDetails {
     public nosOfNonBusinessClassSeats: number,
     public ticketCost: number,
     public nosOfRows: number,
-    public meals: string
+    public meals: string,
+    public discountCode: string,
+    public discount:number
   ) { }
 }
 
@@ -55,6 +57,7 @@ export class BookingDetailsFromUI {
     public seatnos: string,
     public dateofTravel: string,
     public ticketCost: number,
+    public discountCode: string,
     public flightNumber: string
   ) { }
 }
@@ -70,6 +73,7 @@ export class BookingDetails {
     public seatnos: string,
     public dateofTravel: string,
     public ticketCost: number,
+    public discountCode: string,
     public flightNumber: string
   ) { }
 }

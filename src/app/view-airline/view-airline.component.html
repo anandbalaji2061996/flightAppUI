@@ -64,6 +64,7 @@
                 <th>Non-Business Class Seats</th>
                 <th>Rows</th>
                 <th>Meals</th>
+                <th>Discount Code</th>
                 <th>Ticket Cost</th>
                 <th>Edit Details</th>
                 <th>Delete</th>
@@ -82,6 +83,7 @@
                 <td>{{flight.nosOfNonBusinessClassSeats}}</td>
                 <td>{{flight.nosOfRows}}</td>
                 <td>{{flight.meals}}</td>
+                <td>{{flight.discountCode}}</td>
                 <td>{{flight.ticketCost}}</td>
                 <td><button class="button w3-blue" (click)="gotoEdit(flight)">Edit</button></td>
                 <td><button class="button w3-red" (click)="deleteFlight(flight)">Delete</button></td>

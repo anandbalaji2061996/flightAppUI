@@ -30,6 +30,7 @@
                 <th>Meal Option</th>
                 <th>Seat Nos</th>
                 <th>Date of Travel</th>
+                <th>Discount Applied</th>
                 <th>Ticket Cost</th>
                 <th>Delete</th>
             </tr>
@@ -45,6 +46,7 @@
                 <td>{{book.mealOption}}</td>
                 <td>{{book.seatNos}}</td>
                 <td>{{book.dateOfTravel}}</td>
+                <td>{{book.discountCode}}</td>
                 <td>{{book.ticketCost}}</td>
                 <td><button class="w3-button w3-red" (click)="deleteTicket(book)">Delete</button></td>
             </tr>
@@ -105,6 +107,10 @@
                     </tr>
                 </table>
             </td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Discount Applied</th>
+            <td class="tdStyle">{{record.discountCode}}</td>
         </tr>
         <tr class="trStyle">
             <th class="thStyle">Total Ticket Cost</th>

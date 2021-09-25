@@ -10,7 +10,7 @@ export class AirlineRegistrationComponent implements OnInit {
 
   status: boolean;
   message: any;
-  flightDetails: FlightDetails = new FlightDetails("", "", "", "", "", "", "", 1, 1, 1, 1, "");
+  flightDetails: FlightDetails = new FlightDetails("", "", "", "", "", "", "", 1, 1, 1, 1, "","",1);
   // daysOfWeek: String[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   flightWorkingDays: String;
   places: any;
@@ -62,6 +62,12 @@ export class AirlineRegistrationComponent implements OnInit {
     } else if (this.flightDetails.scheduledDays == "") {
       this.status = true;
       this.message = "Please enter the scheduled days of the flight";
+    } else if(this.flightDetails.discountCode == "") {
+      this.status = true;
+      this.message = "Please enter the Discount code for the flight";
+    } else if(this.flightDetails.discount <= 1) {
+      this.status = true;
+      this.message = "Please enter the Discount Percentage for the flight";
     }
 
     if (!this.status) {

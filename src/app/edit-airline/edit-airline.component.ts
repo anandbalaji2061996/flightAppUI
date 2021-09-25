@@ -77,6 +77,12 @@ export class EditAirlineComponent implements OnInit {
     } else if (this.flightDetails.scheduledDays == "") {
       this.status = true;
       this.message = "Please enter the scheduled days of the flight";
+    } else if(this.flightDetails.discountCode == "") {
+      this.status = true;
+      this.message = "Please enter the Discount code for the flight";
+    } else if(this.flightDetails.discount <= 1) {
+      this.status = true;
+      this.message = "Please enter the Discount Percentage for the flight";
     }
 
     if (!this.status) {
