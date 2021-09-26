@@ -85,6 +85,8 @@ export class EditAirlineComponent implements OnInit {
       this.message = "Please enter the Discount Percentage for the flight";
     }
 
+    this.flightDetails.discountCode = this.flightDetails.discountCode.toUpperCase();
+
     if (!this.status) {
       console.log(this.flightDetails)
       this.http.updateInventory(this.flightNo,this.flightDetails).subscribe(

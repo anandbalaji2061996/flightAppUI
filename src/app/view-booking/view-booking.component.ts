@@ -38,15 +38,6 @@ export class ViewBookingComponent implements OnInit {
     }, error => console.log(error));
   }
 
-  getDetails(book: BookingDetails) {
-    console.log(book)
-    this.recordStatus = true;
-    this.http.getByPnr(book.pnr).subscribe(data => {
-      console.log(data)
-      this.selectedRecord = data;
-    })
-  }
-
   deleteTicket(book: BookingDetails) {
     this.recordStatus = false;
     console.log(book.pnr)
@@ -64,6 +55,10 @@ export class ViewBookingComponent implements OnInit {
 
   gotoFlightBooking() {
     this.router.navigate(["user/" + this.emailId + "/flightBooking"]);
+  }
+
+  downloadTicket(book: BookingDetails) {
+    this.router.navigate(["user/" + this.emailId + "/flightBooking/view/"+book.pnr]);
   }
 
 }

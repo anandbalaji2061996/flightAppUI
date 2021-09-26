@@ -1,0 +1,72 @@
+<div class="header" style="text-align: center;">
+    <a class="logo">Flight Booking Application</a>
+</div>
+<div class="w3-container w3-responsive"
+    style="padding-top: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;width: 50%; margin-left: 25%;"
+    >
+    <div>
+        <button class="w3-button w3-gray" (click)="gotoView()" style="float: left;cursor: pointer;">Back</button>
+        <button class="w3-button w3-blue" (click)="printPage()" style="float: right;cursor: pointer;">Print</button>
+    </div>
+    <h2 style="margin-left: 40%;">Ticket Details</h2>
+    <table class="w3-table-all w3-card-4 w3-bordered tableStyle" *ngFor="let record of selectedRecord">
+        <tr class="trStyle">
+            <th class="thStyle">PNR Number</th>
+            <td class="tdStyle" colspan="3">{{record.pnr}}</td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Flight Number</th>
+            <td class="tdStyle" colspan="3">{{record.flightNumber}}</td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Name</th>
+            <td class="tdStyle" colspan="3">{{record.name}}</td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Booking EmailId</th>
+            <td class="tdStyle" colspan="3">{{record.emailId}}</td>
+        </tr>
+        <!-- <tr class="trStyle">
+            <th class="thStyle">Number of Seats</th>
+            <td class="tdStyle" colspan="3">{{record.numberOfSeats}}</td>
+        </tr> -->
+        <tr class="trStyle">
+            <th class="thStyle">Seat Type</th>
+            <td class="tdStyle" colspan="3">{{record.seatType}}</td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Meal Option</th>
+            <td class="tdStyle" colspan="3">{{record.mealOption}}</td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Date of Travel</th>
+            <td class="tdStyle" colspan="3">{{record.dateofTravel}}</td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Travel Passenger Details</th>
+            <td class="tdStyle">
+                <table class="w3-table w3-bordered">
+                    <tr class="trStyle">
+                        <th class="thStyle">Name</th>
+                        <th class="thStyle">Gender</th>
+                        <th class="thStyle">Age</th>
+                    </tr>
+                    <tr class="trStyle" *ngFor="let passenger of record.passengerDetails">
+                        <td class="tdStyle">{{passenger.name}}</td>
+                        <td class="tdStyle">{{passenger.gender}}</td>
+                        <td class="tdStyle">{{passenger.age}}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Discount Applied</th>
+            <td class="tdStyle">{{record.discountCode}}</td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Total Ticket Cost</th>
+            <td class="tdStyle">{{record.ticketCost}}</td>
+        </tr>
+    </table>
+</div>
+<br />

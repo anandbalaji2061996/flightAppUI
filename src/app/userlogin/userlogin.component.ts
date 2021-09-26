@@ -27,8 +27,10 @@ export class UserloginComponent implements OnInit {
         this.nextUrl(this.user.emailId);
       else
         alert("Credentials alredy available. Try with different credentials!");
-      }, error => console.log(error));
-
+      }, error => {
+        alert("Credentials alredy available. Try with different credentials!");
+       console.log(error)
+    })
   };
 
   loginUser() {

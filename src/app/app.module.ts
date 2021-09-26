@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { ViewAirlineComponent } from './view-airline/view-airline.component';
 import { AirlineComponent } from './airline/airline.component';
+import { DownloadComponent } from './download/download.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AirlineComponent } from './airline/airline.component';
     HeaderComponent,
     HomeComponent,
     ViewAirlineComponent,
-    AirlineComponent
+    AirlineComponent,
+    DownloadComponent
   ],
   imports: [
     BrowserModule,

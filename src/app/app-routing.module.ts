@@ -9,13 +9,14 @@ import { HomeComponent } from './home/home.component';
 import { UserloginComponent } from './userlogin/userlogin.component';
 import { ViewAirlineComponent } from './view-airline/view-airline.component';
 import { ViewBookingComponent } from './view-booking/view-booking.component';
-
+import { DownloadComponent } from './download/download.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, },
   { path: 'user', component: UserloginComponent },
   { path: 'user/:id1/flightBooking', component: FlightbookingComponent },
   { path: 'user/:id1/flightBooking/view', component: ViewBookingComponent },
+  { path: 'user/:id1/flightBooking/view/:id3', component: DownloadComponent },
   { path: 'admin', component: AdminloginComponent },
   { path: 'admin/view', component: ViewAirlineComponent },
   { path: 'admin/register', component: AirlineRegistrationComponent},

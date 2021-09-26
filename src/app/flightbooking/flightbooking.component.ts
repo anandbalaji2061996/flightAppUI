@@ -19,7 +19,7 @@ export class FlightbookingComponent implements OnInit {
   places: any;
   tableStatus: boolean = false;
   discount: number;
-  bookingDetailsDisplay: BookingDetailsFromUI = new BookingDetailsFromUI("","",1,"","","","","",1,"","");
+  bookingDetailsDisplay: BookingDetailsFromUI = new BookingDetailsFromUI("","",1,"","","","",1,"","");
   // daysOfWeek: String[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   flightWorkingDays: String;
   constructor(private router: Router, private http: HttpService, private activatedRoute: ActivatedRoute) { }
@@ -95,9 +95,9 @@ export class FlightbookingComponent implements OnInit {
     } else if(this.bookingDetailsDisplay.seatType == "") {
       this.status = true;
       this.message = "Please enter your seat type either Business class or Non-Business class";
-    } else if(this.bookingDetailsDisplay.seatnos == "") {
-      this.status = true;
-      this.message = "Please enter the seat numbers in format 1,2,3...";
+    // } else if(this.bookingDetailsDisplay.seatnos == "") {
+    //   this.status = true;
+    //   this.message = "Please enter the seat numbers in format 1,2,3...";
     } else if(this.bookingDetailsDisplay.passengerDetails == ""){
       this.status = true;
       this.message = "Please enter the passenger details in the format Name-Gender-Age,Name-Gender-Age,..."
@@ -110,9 +110,9 @@ export class FlightbookingComponent implements OnInit {
         this.status = true;
         this.message = "Please provide the week end date[Sunday/Saturday]"
       }
-    } else if(this.flightWorkingDays == "Weekdays") {
+    } else if(this.flightWorkingDays == "WeekDays") {
       if(d >=1 && d <= 5) {
-        console.log("Weekdays");
+        console.log("WeekDays");
       } else {
         this.status = true;
         this.message = "Please provide the week days date[Monday - Friday]"
@@ -120,10 +120,10 @@ export class FlightbookingComponent implements OnInit {
     } else {
       console.log("Daily")
     }
-    if(this.bookingDetailsDisplay.numberOfSeats != this.bookingDetailsDisplay.seatnos.split(",").length) {
-      this.status = true;
-      this.message = "Please provide only "+this.bookingDetailsDisplay.numberOfSeats+" in seat numbers field!"
-    }
+    // if(this.bookingDetailsDisplay.numberOfSeats != this.bookingDetailsDisplay.seatnos.split(",").length) {
+    //   this.status = true;
+    //   this.message = "Please provide only "+this.bookingDetailsDisplay.numberOfSeats+" in seat numbers field!"
+    // }
     if(this.bookingDetailsDisplay.numberOfSeats != this.bookingDetailsDisplay.passengerDetails.split(",").length) {
       this.status = true;
       this.message = "Please provide " + this.bookingDetailsDisplay.numberOfSeats+" passenger details only in passenger details field!"

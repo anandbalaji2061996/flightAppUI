@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PassengerDetails } from './BookingForm';
 
 const place: String[] = ["Bangalore", "Chennai", "Coimbatore", "Delhi", "Hyderabad", "Mumbai", "Pune"];
 
@@ -54,7 +53,7 @@ export class BookingDetailsFromUI {
     public passengerDetails: string,
     public seatType: string,
     public mealOption: string,
-    public seatnos: string,
+    // public seatnos: string,
     public dateofTravel: string,
     public ticketCost: number,
     public discountCode: string,
@@ -70,7 +69,7 @@ export class BookingDetails {
     public numberOfSeats: number,
     public seatType: string,
     public mealOption: string,
-    public seatnos: string,
+    // public seatnos: string,
     public dateofTravel: string,
     public ticketCost: number,
     public discountCode: string,
