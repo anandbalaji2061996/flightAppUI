@@ -40,7 +40,7 @@ export class ViewBookingComponent implements OnInit {
 
   deleteTicket(book: BookingDetails) {
     this.recordStatus = false;
-    console.log(book.pnr)
+    console.log(book.pnr);
     this.http.deleteBookedTicket(book.pnr).subscribe(data => {
       console.log(data);
       this.getBookedDetails(this.emailId)

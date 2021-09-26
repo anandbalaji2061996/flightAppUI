@@ -126,6 +126,10 @@ export class HttpService {
     return this.http.delete(BASEURL_USER + 'booking/cancel/' + pnr, { responseType: 'text' })
   }
 
+  getUserDetails(emailId: any) {
+    return this.http.get(BASEURL_USER + 'userDetails/' + emailId, {responseType: 'text'})
+  }
+
   //Admin
 
   getAllAirline(): Observable<any> {
