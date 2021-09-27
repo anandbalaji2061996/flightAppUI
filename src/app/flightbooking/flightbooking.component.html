@@ -182,6 +182,26 @@
 
         <div class="form-group row">
             <div class="col-25">
+                <label for="departureTime">Departure Time:</label>
+            </div>
+            <div class="col-75">
+                <input type="text" [(ngModel)]="bookingDetailsDisplay.departureTime" placeholder="departureTime" name="departureTime"
+                    class="form-control" id="departureTime" readonly>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-25">
+                <label for="arrivalTime">Arrival Time:</label>
+            </div>
+            <div class="col-75">
+                <input type="text" [(ngModel)]="bookingDetailsDisplay.arrivalTime" placeholder="arrivalTime" name="arrivalTime"
+                    class="form-control" id="arrivalTime" readonly>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-25">
                 <label for="discountCode">Discount Code:</label>
             </div>
             <div class="col-75">

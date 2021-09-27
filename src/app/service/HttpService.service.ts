@@ -55,6 +55,8 @@ export class BookingDetailsFromUI {
     public mealOption: string,
     // public seatnos: string,
     public dateofTravel: string,
+    public departureTime: string,
+    public arrivalTime: string,
     public ticketCost: number,
     public discountCode: string,
     public flightNumber: string
@@ -70,10 +72,26 @@ export class BookingDetails {
     public seatType: string,
     public mealOption: string,
     // public seatnos: string,
-    public dateofTravel: string,
+    public dateOfTravel: string,
+    public departureTime: string,
+    public arrivalTime: string,
     public ticketCost: number,
     public discountCode: string,
     public flightNumber: string
+  ) { }
+}
+
+export class FlightAvailability {
+  constructor(
+    public flightNumber: string,
+    public airline: string,
+    public fromPlace: string,
+    public toPlace: string,
+    public journeyDate: string,
+    public nosOfBusinessClassSeats: number,
+    public nosOfNonBusinessClassSeats: number,
+    public nosOfBookedBusinessClassSeats: number,
+    public nosOfBookedNonBusinessClassSeats: number,
   ) { }
 }
 
@@ -162,6 +180,14 @@ export class HttpService {
 
   searchByAirlineAndFromPlaceAndToPlace(airline:any, fromPlace:any, toPlace:any) {
     return this.http.get(BASEURL_ADMIN + 'airline/airlineName/'+airline+'/fromPlace/'+fromPlace+'/toPlace/'+toPlace);
+  }
+
+  saveAvailability(flightAvailability : FlightAvailability) {
+    return this.http.post(BASEURL_ADMIN + '/airline/availability', flightAvailability);
+  }
+
+  getAvailability(flightAvailability : FlightAvailability) {
+    return this.http.post(BASEURL_ADMIN + '/airline/seats/availability', flightAvailability);
   }
 
   //Airline

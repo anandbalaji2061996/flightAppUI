@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService, FlightDetails, BookingDetailsFromUI } from '../service/HttpService.service';
+import { HttpService, FlightDetails, BookingDetailsFromUI, FlightAvailability } from '../service/HttpService.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -20,8 +20,8 @@ export class FlightbookingComponent implements OnInit {
   tableStatus: boolean = false;
   discount: number;
   username: any;
-  bookingDetailsDisplay: BookingDetailsFromUI = new BookingDetailsFromUI("", "", 1, "", "", "", "", 1, "", "");
-  // daysOfWeek: String[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  bookingDetailsDisplay: BookingDetailsFromUI = new BookingDetailsFromUI("", "", 1, "", "", "","","", "", 1, "", "");
+  flightAvailability: FlightAvailability = new FlightAvailability("", "", "", "", "", 0, 0, 0, 0);
   flightWorkingDays: String;
   constructor(private router: Router, private http: HttpService, private activatedRoute: ActivatedRoute) { }
 
@@ -52,6 +52,8 @@ export class FlightbookingComponent implements OnInit {
     this.bookingDetailsDisplay.dateofTravel = flightDetails.startDateTime;
     this.bookingDetailsDisplay.flightNumber = flightDetails.flightNumber;
     this.bookingDetailsDisplay.discountCode = flightDetails.discountCode;
+    this.bookingDetailsDisplay.departureTime = flightDetails.startDateTime;
+    this.bookingDetailsDisplay.arrivalTime = flightDetails.endDateTime;
     this.discount = flightDetails.discount;
     if (flightDetails.meals == "Both")
       this.foodMenu = ["Veg", "Non-Veg"]
@@ -63,6 +65,12 @@ export class FlightbookingComponent implements OnInit {
     this.bookingDetailsDisplay.ticketCost = this.ticketCost;
     this.bookingDetailsDisplay.numberOfSeats = 1;
     this.flightWorkingDays = flightDetails.scheduledDays;
+    this.flightAvailability.flightNumber = flightDetails.flightNumber;
+    this.flightAvailability.airline = flightDetails.airline;
+    this.flightAvailability.fromPlace = flightDetails.fromPlace;
+    this.flightAvailability.toPlace = flightDetails.toPlace;
+    this.flightAvailability.nosOfBusinessClassSeats = flightDetails.nosOfBusinessClassSeats;
+    this.flightAvailability.nosOfNonBusinessClassSeats = flightDetails.nosOfNonBusinessClassSeats;
   }
 
   getSearch() {
@@ -111,7 +119,7 @@ export class FlightbookingComponent implements OnInit {
       var d = new Date(this.bookingDetailsDisplay.dateofTravel).getDay();
       if (this.flightWorkingDays == "WeekEnd") {
         if (d == 0 || d == 6) {
-          if(new Date(this.bookingDetailsDisplay.dateofTravel) > new Date()) {
+          if (new Date(this.bookingDetailsDisplay.dateofTravel) > new Date()) {
             console.log("Date Accepted");
           } else {
             this.status = true;
@@ -124,7 +132,7 @@ export class FlightbookingComponent implements OnInit {
       } else if (this.flightWorkingDays == "WeekDays") {
         if (d >= 1 && d <= 5) {
           console.log("WeekDays");
-          if(new Date(this.bookingDetailsDisplay.dateofTravel) > new Date()) {
+          if (new Date(this.bookingDetailsDisplay.dateofTravel) > new Date()) {
             console.log("Date Accepted");
           } else {
             this.status = true;
@@ -135,7 +143,7 @@ export class FlightbookingComponent implements OnInit {
           this.message = "Please provide the week days date[Monday - Friday]"
         }
       } else {
-        if(new Date(this.bookingDetailsDisplay.dateofTravel) > new Date()) {
+        if (new Date(this.bookingDetailsDisplay.dateofTravel) > new Date()) {
           console.log("Date Accepted");
         } else {
           this.status = true;
@@ -151,22 +159,39 @@ export class FlightbookingComponent implements OnInit {
         this.status = true;
         this.message = "Please provide " + this.bookingDetailsDisplay.numberOfSeats + " passenger details only in passenger details field!"
       }
+
       if (!this.status) {
-        this.bookingDetailsDisplay.ticketCost = this.bookingDetailsDisplay.ticketCost * this.bookingDetailsDisplay.numberOfSeats;
-        this.bookingDetailsDisplay.ticketCost = this.bookingDetailsDisplay.ticketCost - (this.bookingDetailsDisplay.ticketCost * this.discount / 100);
-        if (this.bookingDetailsDisplay.mealOption == "Non-Veg") {
-          this.bookingDetailsDisplay.ticketCost += 200 * this.bookingDetailsDisplay.numberOfSeats
-        } else if (this.bookingDetailsDisplay.mealOption == "Veg") {
-          this.bookingDetailsDisplay.ticketCost += 100 * this.bookingDetailsDisplay.numberOfSeats
+        this.flightAvailability.journeyDate = this.bookingDetailsDisplay.dateofTravel;
+        if (this.bookingDetailsDisplay.seatType == "Business Class") {
+          this.flightAvailability.nosOfBookedBusinessClassSeats = this.bookingDetailsDisplay.numberOfSeats;
+          this.flightAvailability.nosOfBookedNonBusinessClassSeats = 0;
+        } else {
+          this.flightAvailability.nosOfBookedNonBusinessClassSeats = this.bookingDetailsDisplay.numberOfSeats;
+          this.flightAvailability.nosOfBookedBusinessClassSeats = 0;
         }
-        console.log(this.bookingDetailsDisplay)
-        this.http.bookATicket(flightNumber, this.bookingDetailsDisplay).subscribe(
+        this.http.saveAvailability(this.flightAvailability).subscribe(
           data => {
-            console.log(data)
-            alert("Successfully Booked!")
-            this.gotoView();
+            console.log(data);
+            this.bookingDetailsDisplay.ticketCost = this.bookingDetailsDisplay.ticketCost * this.bookingDetailsDisplay.numberOfSeats;
+            this.bookingDetailsDisplay.ticketCost = this.bookingDetailsDisplay.ticketCost - (this.bookingDetailsDisplay.ticketCost * this.discount / 100);
+            if (this.bookingDetailsDisplay.mealOption == "Non-Veg") {
+              this.bookingDetailsDisplay.ticketCost += 200 * this.bookingDetailsDisplay.numberOfSeats
+            } else if (this.bookingDetailsDisplay.mealOption == "Veg") {
+              this.bookingDetailsDisplay.ticketCost += 100 * this.bookingDetailsDisplay.numberOfSeats
+            }
+            console.log(this.bookingDetailsDisplay)
+            this.http.bookATicket(flightNumber, this.bookingDetailsDisplay).subscribe(
+              data => {
+                console.log(data)
+                alert("Successfully Booked!")
+                this.gotoView();
+              }
+            ), error => console.log(error)
+          }, error => {
+            console.log(error);
+            alert("Only few sets available. Please reduce number of seats or book another flight with different timings!");
           }
-        ), error => console.log(error)
+        ), error => console.error(error);
       }
     }
   }

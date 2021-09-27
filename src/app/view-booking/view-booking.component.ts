@@ -39,14 +39,19 @@ export class ViewBookingComponent implements OnInit {
   }
 
   deleteTicket(book: BookingDetails) {
+
     this.recordStatus = false;
-    console.log(book.pnr);
-    this.http.deleteBookedTicket(book.pnr).subscribe(data => {
-      console.log(data);
-      this.getBookedDetails(this.emailId)
-      this.status = true;
-      this.message = book.pnr + " ticket cancelled by the user " + this.emailId;
-    }), error => console.log(error)
+    if(Date.now() + 86400000 <= Date.parse(book.dateOfTravel)) {
+      this.http.deleteBookedTicket(book.pnr).subscribe(data => {
+        console.log(data);
+        this.getBookedDetails(this.emailId)
+        this.status = true;
+        this.message = book.pnr + " ticket cancelled by the user " + this.emailId;
+      }), error => console.log(error)
+    } else {
+      alert("Ticket cannot be cancelled, as your cancellation time is over!")
+    }
+
   }
 
   gotoView() {
