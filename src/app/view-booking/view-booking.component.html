@@ -23,13 +23,15 @@
             <tr style="background-color: lightgray;font-size: medium;">
                 <th>PNR No</th>
                 <th>flightNumber</th>
-                <th>Name</th>
-                <th>Email Id</th>
+                <!-- <th>Name</th> -->
+                <!-- <th>Email Id</th> -->
                 <th>Number of Seats</th>
                 <th>Seat Type</th>
                 <th>Meal Option</th>
                 <!-- <th>Seat Nos</th> -->
                 <th>Date of Travel</th>
+                <th>From Place</th>
+                <th>To Place</th>
                 <th>Departure Time</th>
                 <th>Arrival Time</th>
                 <th>Discount Applied</th>
@@ -42,13 +44,15 @@
             <tr *ngFor="let book of bookingDetails;">
                 <td>{{book.pnr}}</td>
                 <td>{{book.flightNumber}}</td>
-                <td>{{book.name}}</td>
-                <td>{{book.emailId}}</td>
+                <!-- <td>{{book.name}}</td> -->
+                <!-- <td>{{book.emailId}}</td> -->
                 <td>{{book.numberOfSeats}}</td>
                 <td>{{book.seatType}}</td>
                 <td>{{book.mealOption}}</td>
                 <!-- <td>{{book.seatNos}}</td> -->
                 <td>{{book.dateOfTravel}}</td>
+                <td>{{book.fromPlace}}</td>
+                <td>{{book.toPlace}}</td>
                 <td>{{book.departureTime}}</td>
                 <td>{{book.arrivalTime}}</td>
                 <td>{{book.discountCode}}</td>

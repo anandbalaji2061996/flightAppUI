@@ -20,7 +20,7 @@ export class FlightbookingComponent implements OnInit {
   tableStatus: boolean = false;
   discount: number;
   username: any;
-  bookingDetailsDisplay: BookingDetailsFromUI = new BookingDetailsFromUI("", "", 1, "", "", "","","", "", 1, "", "");
+  bookingDetailsDisplay: BookingDetailsFromUI = new BookingDetailsFromUI("", "", 1, "","","", "", "","","", "", 1, "", "");
   flightAvailability: FlightAvailability = new FlightAvailability("", "", "", "", "", 0, 0, 0, 0);
   flightWorkingDays: String;
   constructor(private router: Router, private http: HttpService, private activatedRoute: ActivatedRoute) { }
@@ -65,6 +65,8 @@ export class FlightbookingComponent implements OnInit {
     this.bookingDetailsDisplay.ticketCost = this.ticketCost;
     this.bookingDetailsDisplay.numberOfSeats = 1;
     this.flightWorkingDays = flightDetails.scheduledDays;
+    this.bookingDetailsDisplay.fromPlace = flightDetails.fromPlace;
+    this.bookingDetailsDisplay.toPlace = flightDetails.toPlace;
     this.flightAvailability.flightNumber = flightDetails.flightNumber;
     this.flightAvailability.airline = flightDetails.airline;
     this.flightAvailability.fromPlace = flightDetails.fromPlace;

@@ -55,6 +55,8 @@ export class BookingDetailsFromUI {
     public mealOption: string,
     // public seatnos: string,
     public dateofTravel: string,
+    public fromPlace: string,
+    public toPlace: string,
     public departureTime: string,
     public arrivalTime: string,
     public ticketCost: number,
@@ -73,6 +75,8 @@ export class BookingDetails {
     public mealOption: string,
     // public seatnos: string,
     public dateOfTravel: string,
+    public fromPlace: string,
+    public toPlace: string,
     public departureTime: string,
     public arrivalTime: string,
     public ticketCost: number,
@@ -188,6 +192,10 @@ export class HttpService {
 
   getAvailability(flightAvailability : FlightAvailability) {
     return this.http.post(BASEURL_ADMIN + '/airline/seats/availability', flightAvailability);
+  }
+
+  updateSeatAvailabilityAfterCancel(flightAvailability : FlightAvailability) {
+    return this.http.post(BASEURL_ADMIN + '/airline/seats/availability/aftercancel', flightAvailability);
   }
 
   //Airline
