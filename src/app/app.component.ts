@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from './service/HttpService.service';
+import { TokenStorageService } from './service/token-storage.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,11 +8,25 @@ import { HttpService } from './service/HttpService.service';
 export class AppComponent implements OnInit{
   title = 'Flight Booking Application';
 
-  constructor(private http:HttpService){}
-  
-  ngOnInit() {
-    // this.demo.getMethod().subscribe(
-    //  response =>{console.log(response)}
-    // );
+  private roles: string[] = [];
+  isLoggedIn = false;
+  username?: string;
+
+  constructor(private tokenStorageService: TokenStorageService) { }
+
+  ngOnInit(): void {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+
+      this.username = user.username;
+    }
+  }
+
+  logout(): void {
+    this.tokenStorageService.signOut();
+    window.location.reload();
   }
 }

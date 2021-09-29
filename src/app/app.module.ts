@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component';
 import { ViewAirlineComponent } from './view-airline/view-airline.component';
 import { AirlineComponent } from './airline/airline.component';
 import { DownloadComponent } from './download/download.component';
+import { authInterceptorProviders } from './_helpers/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { DownloadComponent } from './download/download.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [HttpService],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

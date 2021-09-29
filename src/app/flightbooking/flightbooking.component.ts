@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService, FlightDetails, BookingDetailsFromUI, FlightAvailability } from '../service/HttpService.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TokenStorageService } from '../service/token-storage.service';
 
 @Component({
   selector: 'app-flightbooking',
@@ -20,10 +21,11 @@ export class FlightbookingComponent implements OnInit {
   tableStatus: boolean = false;
   discount: number;
   username: any;
-  bookingDetailsDisplay: BookingDetailsFromUI = new BookingDetailsFromUI("", "", 1, "","","", "", "","","", "", 1, "", "");
+  bookingDetailsDisplay: BookingDetailsFromUI = new BookingDetailsFromUI("", "", 1, "", "", "", "", "", "", "", "", 1, "", "");
   flightAvailability: FlightAvailability = new FlightAvailability("", "", "", "", "", 0, 0, 0, 0);
   flightWorkingDays: String;
-  constructor(private router: Router, private http: HttpService, private activatedRoute: ActivatedRoute) { }
+  constructor(private router: Router, private http: HttpService, private activatedRoute: ActivatedRoute,
+    private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
     this.status = false;
@@ -35,6 +37,11 @@ export class FlightbookingComponent implements OnInit {
       this.http.getUserDetails(id).subscribe(data => {
         console.log(data);
         this.bookingDetailsDisplay.name = data
+      }, error => {
+        if (error.status == 500)
+          alert("Session Expired! Please Login again!")
+        this.gotoLogin();
+        console.log(error)
       }), error => console.log(console.error());
     });
 
@@ -212,5 +219,14 @@ export class FlightbookingComponent implements OnInit {
 
   gotoFlightBooking() {
     this.router.navigate([this.router.url]);
+  }
+
+  gotoLogin() {
+    this.router.navigate(["user"]);
+  }
+
+  logout(): void {
+    this.tokenStorageService.signOut();
+    this.gotoLogin();
   }
 }

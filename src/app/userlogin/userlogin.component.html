@@ -8,14 +8,16 @@
                 <hr>
 
                 <label for="name"><b>Username</b></label>
-                <input type="text" [(ngModel)]="user.name" placeholder="Enter Name" name="name" class="form-control" id="name">
+                <input type="text" [(ngModel)]="user.username" placeholder="Enter Name" name="name" class="form-control"
+                    id="name" required minlength="3" maxlength="20">
 
                 <label for="email"><b>Email</b></label>
-                <input type="text" [(ngModel)]="user.emailId" placeholder="Enter Email" name="emailId" class="form-control" id="emailId">
+                <input type="email" [(ngModel)]="user.email" placeholder="Enter Email" name="emailId"
+                    class="form-control" id="emailId" required>
 
                 <label for="password"><b>Password</b></label>
-                <input type="password" [(ngModel)]="user.password" placeholder="Enter Password" name="password" class="form-control"
-                id="password">
+                <input type="password" [(ngModel)]="user.password" placeholder="Enter Password" name="password"
+                    class="form-control" id="password" required minlength="6">
                 <button type="submit" class="registerbtn" (click)="registerUser()">Register</button>
             </div>
 

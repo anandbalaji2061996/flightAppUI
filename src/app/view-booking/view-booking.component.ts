@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpService, BookingDetails, FlightAvailability } from '../service/HttpService.service';
+import { TokenStorageService } from '../service/token-storage.service';
 @Component({
   selector: 'app-view-booking',
   templateUrl: './view-booking.component.html',
@@ -14,7 +15,7 @@ export class ViewBookingComponent implements OnInit {
   tableStatus: boolean = true;
   selectedRecord: any = [];
   recordStatus: boolean;
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, private tokenStorageService: TokenStorageService) { }
   flightAvailability: FlightAvailability = new FlightAvailability("", "", "", "", "", 0, 0, 0, 0);
   bookingDetails: BookingDetails[];
   ngOnInit(): void {
@@ -36,7 +37,12 @@ export class ViewBookingComponent implements OnInit {
         this.tableStatus = false;
         this.message = "No Records Found!"
       }
-    }, error => console.log(error));
+    }, error => {
+      if (error.status == 500)
+        alert("Session Expired! Please Login again!")
+      this.gotoLogin();
+      console.log(error)
+    });
   }
 
   deleteTicket(book: BookingDetails) {
@@ -54,25 +60,24 @@ export class ViewBookingComponent implements OnInit {
 
     this.recordStatus = false;
     if (Date.now() + 86400000 <= Date.parse(book.dateOfTravel)) {
-      this.http.updateSeatAvailabilityAfterCancel(this.flightAvailability).subscribe(
-        data => {
-          console.log(data);
-          this.http.deleteBookedTicket(book.pnr).subscribe(data => {
+      this.http.deleteBookedTicket(book.pnr).subscribe(data => {
+        console.log(data);
+        this.http.updateSeatAvailabilityAfterCancel(this.flightAvailability).subscribe(
+          data => {
             console.log(data);
-            this.getBookedDetails(this.emailId)
-            this.status = true;
-            this.message = book.pnr + " ticket cancelled by the user " + this.emailId;
-          }), error => console.log(error)
-        }, error => {
-          console.log(error);
-          alert("Booking cannot be cancelled!");
-        }
-      ), error => console.log(error);
-
+          }, error => console.log(error));
+        this.getBookedDetails(this.emailId)
+        this.status = true;
+        this.message = book.pnr + " ticket cancelled by the user " + this.emailId;
+      }, error => {
+        if (error.status == 500)
+          alert("Session Expired! Please Login again!")
+        this.gotoLogin();
+        console.log(error)
+      });
     } else {
       alert("Ticket cannot be cancelled, as your cancellation time is over!")
     }
-
   }
 
   gotoView() {
@@ -83,8 +88,17 @@ export class ViewBookingComponent implements OnInit {
     this.router.navigate(["user/" + this.emailId + "/flightBooking"]);
   }
 
+  gotoLogin() {
+    this.router.navigate(["user/"]);
+  }
+
   downloadTicket(book: BookingDetails) {
     this.router.navigate(["user/" + this.emailId + "/flightBooking/view/" + book.pnr]);
+  }
+
+  logout(): void {
+    this.tokenStorageService.signOut();
+    this.gotoLogin();
   }
 
 }

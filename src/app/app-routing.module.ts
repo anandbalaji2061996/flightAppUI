@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'admin/view', component: ViewAirlineComponent },
   { path: 'admin/register', component: AirlineRegistrationComponent},
   { path: 'admin/edit/:id2', component: EditAirlineComponent},
-  { path: 'admin/registerAirline', component: AirlineComponent}
+  { path: 'admin/registerAirline', component: AirlineComponent}  
 ];
 
 @NgModule({

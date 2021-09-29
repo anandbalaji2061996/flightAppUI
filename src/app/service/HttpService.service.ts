@@ -4,12 +4,12 @@ import { Observable } from 'rxjs';
 
 const place: String[] = ["Bangalore", "Chennai", "Coimbatore", "Delhi", "Hyderabad", "Mumbai", "Pune"];
 
-export class UserLoginCredentials {
-  constructor(
-    public emailId: string,
-    public password: string
-  ) { }
-}
+// export class UserLoginCredentials {
+//   constructor(
+//     public emailId: string,
+//     public password: string
+//   ) { }
+// }
 
 export class AdminLoginCredentials {
   constructor(
@@ -18,13 +18,13 @@ export class AdminLoginCredentials {
   ) { }
 }
 
-export class UserDetails {
-  constructor(
-    public name: string,
-    public emailId: string,
-    public password: string
-  ) { }
-}
+// export class UserDetails {
+//   constructor(
+//     public name: string,
+//     public emailId: string,
+//     public password: string
+//   ) { }
+// }
 
 export class FlightDetails {
   constructor(
@@ -124,13 +124,13 @@ export class HttpService {
   }
 
   //User
-  loginUser(userLoginDetails: UserLoginCredentials) {
-    return this.http.post(BASEURL_USER + 'login', userLoginDetails, { responseType: 'text' });
-  }
+  // loginUser(userLoginDetails: UserLoginCredentials) {
+  //   return this.http.post(BASEURL_USER + 'login', userLoginDetails, { responseType: 'text' });
+  // }
 
-  registerUser(userDetails: UserDetails) {
-    return this.http.post(BASEURL_USER + 'register', userDetails, { responseType: 'text' });
-  }
+  // registerUser(userDetails: UserDetails) {
+  //   return this.http.post(BASEURL_USER + 'register', userDetails, { responseType: 'text' });
+  // }
 
   bookATicket(flightNumber: any, bookingDetailsDisplay: BookingDetailsFromUI) {
     return this.http.post(BASEURL_USER + 'booking/' + flightNumber, bookingDetailsDisplay, {
