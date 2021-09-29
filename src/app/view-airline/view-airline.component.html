@@ -84,7 +84,7 @@
                 <td>{{flight.nosOfRows}}</td>
                 <td>{{flight.meals}}</td>
                 <td>{{flight.discountCode}}</td>
-                <td>{{flight.ticketCost}}</td>
+                <td>{{flight.ticketCost | currency: 'INR'}}</td>
                 <td><button class="button w3-blue" (click)="gotoEdit(flight)">Edit</button></td>
                 <td><button class="button w3-red" (click)="deleteFlight(flight)">Delete</button></td>
             </tr>

@@ -56,7 +56,7 @@
                 <td>{{book.departureTime}}</td>
                 <td>{{book.arrivalTime}}</td>
                 <td>{{book.discountCode}}</td>
-                <td>{{book.ticketCost}}</td>
+                <td>{{book.ticketCost | currency: 'INR'}}</td>
                 <td><button class="w3-button w3-blue" (click)="downloadTicket(book)">Download</button></td>
                 <td><button class="w3-button w3-red" (click)="deleteTicket(book)">Delete</button></td>
             </tr>
