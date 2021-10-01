@@ -17,7 +17,9 @@
                 <hr>
 
                 <label for="name"><b>Airline Name</b></label>
-                <input type="text" [(ngModel)]="airline.name" placeholder="Enter Airline Name" name="name"
+                <input *ngIf="updateStatus" type="text" [(ngModel)]="airline.name" placeholder="Enter Airline Name" name="name"
+                    class="form-control" id="name" readonly>
+                <input *ngIf="!updateStatus" type="text" [(ngModel)]="airline.name" placeholder="Enter Airline Name" name="name"
                     class="form-control" id="name">
 
                 <label for="address"><b>Airline Address</b></label>
@@ -48,6 +50,7 @@
                         <th>Name</th>
                         <th>Address</th>
                         <th>Contact Number</th>
+                        <th>Update</th>
                         <th>Delete Details</th>
                     </tr>
                 </thead>
@@ -56,6 +59,7 @@
                         <td>{{a.name}}</td>
                         <td>{{a.address}}</td>
                         <td>{{a.contactNumber}}</td>
+                        <td><button class="w3-button w3-blue" (click)="getSelectedAirline(a)">Update</button></td>
                         <td><button class="w3-button w3-red" (click)="deleteAirline(a)">Delete</button></td>
                     </tr>
                 </tbody>

@@ -60,21 +60,23 @@ export class ViewBookingComponent implements OnInit {
 
     this.recordStatus = false;
     if (Date.now() + 86400000 <= Date.parse(book.dateOfTravel)) {
-      this.http.deleteBookedTicket(book.pnr).subscribe(data => {
-        console.log(data);
-        this.http.updateSeatAvailabilityAfterCancel(this.flightAvailability).subscribe(
-          data => {
-            console.log(data);
-          }, error => console.log(error));
-        this.getBookedDetails(this.emailId)
-        this.status = true;
-        this.message = book.pnr + " ticket cancelled by the user " + this.emailId;
-      }, error => {
-        if (error.status == 500)
-          alert("Session Expired! Please Login again!")
-        this.gotoLogin();
-        console.log(error)
-      });
+      if (confirm("Are you sure you want to cancel ticket number " + book.pnr + " ?")) {
+        this.http.deleteBookedTicket(book.pnr).subscribe(data => {
+          console.log(data);
+          this.http.updateSeatAvailabilityAfterCancel(this.flightAvailability).subscribe(
+            data => {
+              console.log(data);
+            }, error => console.log(error));
+          this.getBookedDetails(this.emailId)
+          this.status = true;
+          this.message = book.pnr + " ticket cancelled by the user " + this.emailId;
+        }, error => {
+          if (error.status == 500)
+            alert("Session Expired! Please Login again!")
+          this.gotoLogin();
+          console.log(error)
+        });
+      }
     } else {
       alert("Ticket cannot be cancelled, as your cancellation time is over!")
     }

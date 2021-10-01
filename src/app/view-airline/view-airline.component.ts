@@ -24,29 +24,29 @@ export class ViewAirlineComponent implements OnInit {
     this.tableStatus = true;
     this.message = "";
     this.places = this.http.getPlace();
-    this.http.getAllAirlineNames().subscribe(data => this.airlines = data),error => console.log(error)
+    this.http.getAllAirlineNames().subscribe(data => this.airlines = data), error => console.log(error)
     this.getAllAirline();
   }
 
   getAllAirline() {
     this.tableStatus = true;
     this.http.getAllAirline().subscribe(
-      data => { 
+      data => {
         this.flightDetails = data;
-        if(this.flightDetails.length == 0) {
+        if (this.flightDetails.length == 0) {
           this.tableStatus = false;
           this.message = "No Records Found!"
         }
-       }, error => console.log(error));
+      }, error => console.log(error));
   }
 
   getSearch() {
-    if(this.fromPlace == undefined && this.toPlace == undefined && this.airlineName == undefined) {
+    if (this.fromPlace == undefined && this.toPlace == undefined && this.airlineName == undefined) {
       console.log(this.fromPlace + " " + this.toPlace + " " + this.airlineName)
       this.getAllAirline();
-    } else if(this.fromPlace == undefined || this.toPlace == undefined || this.airlineName == undefined) {
+    } else if (this.fromPlace == undefined || this.toPlace == undefined || this.airlineName == undefined) {
       alert("Please provide Airline Name, From place and To place");
-    } else {      
+    } else {
       this.http.searchByAirlineAndFromPlaceAndToPlace(this.airlineName, this.fromPlace, this.toPlace).subscribe(
         data => {
           console.log(this.fromPlace + " " + this.toPlace)
@@ -54,31 +54,33 @@ export class ViewAirlineComponent implements OnInit {
           this.toPlace = undefined;
           this.airlineName = undefined;
           this.flightDetails = data;
-          if(this.flightDetails.length == 0) {
+          if (this.flightDetails.length == 0) {
             this.tableStatus = false;
             this.message = "No Records Found!"
           }
-         }, error => console.log(error));
+        }, error => console.log(error));
     }
   }
 
-  deleteFlight(flightDetails : FlightDetails) {
-    console.log(flightDetails)
-    this.http.deleteFlight(flightDetails.flightNumber).subscribe(
-      data => {
-      this.getAllAirline()
-      this.status = true;
-      this.message = flightDetails.flightNumber + " operations has been cancelled by the admin!";
-    }), error => console.log(error)
+  deleteFlight(flightDetails: FlightDetails) {
+    console.log(flightDetails);
+    if (confirm("Are you sure you want to cancel flight operation for the flight number " + flightDetails.flightNumber + " ?")) {
+      this.http.deleteFlight(flightDetails.flightNumber).subscribe(
+        data => {
+          this.getAllAirline()
+          this.status = true;
+          this.message = flightDetails.flightNumber + " operations has been cancelled by the admin!";
+        }), error => console.log(error)
+    }
   }
 
   gotoAvailable() {
     this.router.navigate([this.router.url]);
   }
 
-  gotoEdit(flightDetails : FlightDetails) {
+  gotoEdit(flightDetails: FlightDetails) {
     console.log(flightDetails.flightNumber);
-    this.router.navigate(['/admin/edit/'+flightDetails.flightNumber])
+    this.router.navigate(['/admin/edit/' + flightDetails.flightNumber])
   }
 
   gotoRegisterFlight() {

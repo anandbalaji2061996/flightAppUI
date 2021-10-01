@@ -124,13 +124,6 @@ export class HttpService {
   }
 
   //User
-  // loginUser(userLoginDetails: UserLoginCredentials) {
-  //   return this.http.post(BASEURL_USER + 'login', userLoginDetails, { responseType: 'text' });
-  // }
-
-  // registerUser(userDetails: UserDetails) {
-  //   return this.http.post(BASEURL_USER + 'register', userDetails, { responseType: 'text' });
-  // }
 
   bookATicket(flightNumber: any, bookingDetailsDisplay: BookingDetailsFromUI) {
     return this.http.post(BASEURL_USER + 'booking/' + flightNumber, bookingDetailsDisplay, {
@@ -241,5 +234,13 @@ export class HttpService {
 
   getAllAirlineNames() {
     return this.http.get(BASEURL_AIRLINE + 'names');
+  }
+
+  getAirlineByName(name:any) {
+    return this.http.get(BASEURL_AIRLINE + "names/"+name)
+  }
+
+  updateAirline(airline:any, name: string) {
+    return this.http.put(BASEURL_AIRLINE + "update/" + name, airline);
   }
 }
