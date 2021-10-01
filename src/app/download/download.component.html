@@ -2,7 +2,8 @@
     <a class="logo">Flight Booking Application</a>
 </div>
 <div class="w3-container w3-responsive"
-    style="padding-top: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;width: 50%; margin-left: 25%;">
+    style="padding-top: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;width: 50%; margin-left: 25%;"
+    >
     <div>
         <button class="w3-button w3-gray" (click)="gotoView()" style="float: left;cursor: pointer;">Back</button>
         <button class="w3-button w3-blue" (click)="printPage()" style="float: right;cursor: pointer;">Print</button>
@@ -22,10 +23,6 @@
             <td class="tdStyle" colspan="3">{{airlineName}}</td>
         </tr>
         <tr class="trStyle">
-            <th class="thStyle">Airline contact Number</th>
-            <td class="tdStyle" colspan="3">{{airlineContactNumber}}</td>
-        </tr>
-        <tr class="trStyle">
             <th class="thStyle">Name</th>
             <td class="tdStyle" colspan="3">{{record.name}}</td>
         </tr>
@@ -33,6 +30,10 @@
             <th class="thStyle">Booking EmailId</th>
             <td class="tdStyle" colspan="3">{{record.emailId}}</td>
         </tr>
+        <!-- <tr class="trStyle">
+            <th class="thStyle">Number of Seats</th>
+            <td class="tdStyle" colspan="3">{{record.numberOfSeats}}</td>
+        </tr> -->
         <tr class="trStyle">
             <th class="thStyle">Seat Type</th>
             <td class="tdStyle" colspan="3">{{record.seatType}}</td>
@@ -47,19 +48,23 @@
         </tr>
         <tr class="trStyle">
             <th class="thStyle">From Place</th>
-            <td class="tdStyle">{{record.fromPlace}}</td>
+            <td class="tdStyle" colspan="3">{{record.fromPlace}}</td>
+        </tr>
+        <tr class="trStyle">
             <th class="thStyle">To Place</th>
-            <td class="tdStyle">{{record.toPlace}}</td>
+            <td class="tdStyle" colspan="3">{{record.toPlace}}</td>
         </tr>
         <tr class="trStyle">
             <th class="thStyle">Departure Time</th>
-            <td class="tdStyle">{{record.departureTime}}</td>
+            <td class="tdStyle" colspan="3">{{record.departureTime}}</td>
+        </tr>
+        <tr class="trStyle">
             <th class="thStyle">Arrival Time</th>
-            <td class="tdStyle">{{record.arrivalTime}}</td>
+            <td class="tdStyle" colspan="3">{{record.arrivalTime}}</td>
         </tr>
         <tr class="trStyle">
             <th class="thStyle">Travel Passenger Details</th>
-            <td class="tdStyle" colspan="3">
+            <td class="tdStyle">
                 <table class="w3-table w3-bordered">
                     <tr class="trStyle">
                         <th class="thStyle">Name</th>
@@ -76,11 +81,15 @@
         </tr>
         <tr class="trStyle">
             <th class="thStyle">Discount Applied</th>
-            <td class="tdStyle" colspan="3">{{record.discountCode}}</td>
+            <td class="tdStyle">{{record.discountCode}}</td>
         </tr>
         <tr class="trStyle">
             <th class="thStyle">Total Ticket Cost</th>
-            <td class="tdStyle" colspan="3">{{record.ticketCost | currency: 'INR'}}</td>
+            <td class="tdStyle">{{record.ticketCost | currency: 'INR'}}</td>
+        </tr>
+        <tr class="trStyle">
+            <th class="thStyle">Airline contact Number</th>
+            <td class="tdStyle" colspan="3">{{airlineContactNumber}}</td>
         </tr>
     </table>
 </div>
