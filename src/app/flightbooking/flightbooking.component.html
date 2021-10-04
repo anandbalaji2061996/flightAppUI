@@ -11,28 +11,27 @@
     style="padding-top: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
     <div class="w3-row-padding" style="margin-left:30%">
         <div style="float: left;">
-          <label style="font-weight: bold; font-size: large;">From Place</label>
-          <select [(ngModel)]="fromPlace" placeholder="Enter From Place" name="fromPlace"
-                    class="form-control" id="fromPlace">
-                    <option *ngFor="let place of places" value={{place}}>{{place}}</option>
-                </select>
+            <label style="font-weight: bold; font-size: large;">From Place</label>
+            <select [(ngModel)]="fromPlace" placeholder="Enter From Place" name="fromPlace" class="form-control"
+                id="fromPlace">
+                <option *ngFor="let place of places" value={{place}}>{{place}}</option>
+            </select>
         </div>
         <div style="float: left; margin-left: 10px;">
-          <label  style="font-weight: bold; font-size: large;">To Place</label>
-          <select [(ngModel)]="toPlace" placeholder="Enter To Place" name="toPlace"
-                    class="form-control" id="toPlace">
-                    <option *ngFor="let place of places" value={{place}}>{{place}}</option>
-        </select>
+            <label style="font-weight: bold; font-size: large;">To Place</label>
+            <select [(ngModel)]="toPlace" placeholder="Enter To Place" name="toPlace" class="form-control" id="toPlace">
+                <option *ngFor="let place of places" value={{place}}>{{place}}</option>
+            </select>
         </div>
         <div style="float: left;margin-left: 10px; margin-top: 45px">
-            <button class="button" style="background-color: steelblue;" type="submit" (click)="getSearch()"> Search </button>
-          </div>
-      </div>
-    <br/>
+            <button class="button" style="background-color: steelblue;" type="submit" (click)="getSearch()"> Search
+            </button>
+        </div>
+    </div>
+    <br />
     <div *ngIf="!tableStatus" style="background-color: lightgoldenrodyellow;">
-        <h3  style="margin-left: 15px; font-size: larger;"
-            style="color: indianred">{{message}}</h3>
-      </div>
+        <h3 style="margin-left: 15px; font-size: larger;" style="color: indianred">{{message}}</h3>
+    </div>
     <table class="w3-table-all w3-card-4 w3-hoverable" *ngIf="tableStatus">
         <thead>
             <tr style="background-color: lightgray;font-size: medium;">
@@ -136,11 +135,12 @@
                 <label for="mealOption">Meal Options:</label>
             </div>
             <div class="col-75">
-                <span style="color: red;font-size: small">*Extra of Rs 100 for Veg and Rs 200 for Non-Veg will be charged</span>
-                <br/>
+                <span style="color: red;font-size: small">*Extra of Rs 100 for Veg and Rs 200 for Non-Veg will be
+                    charged</span>
+                <br />
                 <span *ngFor="let menu of foodMenu">
-                <input class="w3-radio" type="radio" value={{menu}} id="mealOption" name="mealOption"
-                    [(ngModel)]="bookingDetailsDisplay.mealOption"> {{menu}}
+                    <input class="w3-radio" type="radio" value={{menu}} id="mealOption" name="mealOption"
+                        [(ngModel)]="bookingDetailsDisplay.mealOption"> {{menu}}
                 </span>
             </div>
         </div>
@@ -160,11 +160,30 @@
                 <label for="passengerDetails">Passenger Details:</label>
             </div>
             <div class="col-75">
-                <span style="color: red;font-size: small">*Passenger Details format [Name-Gender-Age,Name-Gender-Age,...]</span>
-                <textarea placeholder="Write something.." style="height:200px"
-                    [(ngModel)]="bookingDetailsDisplay.passengerDetails"
-                    placeholder="Name-Gender-Age,Name-Gender-Age,..." name="passengerDetails" class="form-control"
-                    id="passengerDetails" required></textarea>
+                <span style="color: red;font-size: small">*Please click on save to save passenger details</span>
+                <form [formGroup]="passengerForm">
+
+                    <div formArrayName="passengers">
+                        <table>
+                            <tr>
+                                <th>Name</th>
+                                <th style="width: 10%;">Age</th>
+                                <th>Gender</th>
+                                <th>Remove</th>
+                            </tr>
+                            <tr *ngFor="let passenger of passengers.controls; let i=index">
+                                <td [formGroupName]="i"><input type="text" formControlName="name"></td>
+                                <td [formGroupName]="i"><input type="number" min="1" max="100" formControlName="age"></td>
+                                <td [formGroupName]="i"><input type="radio" formControlName="gender" value="Male"> Male 
+                                    <input type="radio" formControlName="gender" value="Female"> Female
+                                </td>
+                                <td [formGroupName]="i"><button class="w3-button w3-red" (click)="removePassenger(i)">Remove</button></td>
+                            </tr>
+                        </table>
+                        <button class="w3-button w3-gray" (click)="addPassenger()">Add Passenger</button>
+                    </div>
+                    <button class="btn btn-success" type="submit" (click)="onSubmit()">Save Passenger(s)</button>
+                </form>
             </div>
         </div>
 
@@ -183,8 +202,8 @@
                 <label for="fromPlace">From Place:</label>
             </div>
             <div class="col-75">
-                <input type="text" [(ngModel)]="bookingDetailsDisplay.fromPlace" placeholder="fromPlace" name="fromPlace"
-                    class="form-control" id="fromPlace" readonly>
+                <input type="text" [(ngModel)]="bookingDetailsDisplay.fromPlace" placeholder="fromPlace"
+                    name="fromPlace" class="form-control" id="fromPlace" readonly>
             </div>
         </div>
 
@@ -203,8 +222,8 @@
                 <label for="departureTime">Departure Time:</label>
             </div>
             <div class="col-75">
-                <input type="text" [(ngModel)]="bookingDetailsDisplay.departureTime" placeholder="departureTime" name="departureTime"
-                    class="form-control" id="departureTime" readonly>
+                <input type="text" [(ngModel)]="bookingDetailsDisplay.departureTime" placeholder="departureTime"
+                    name="departureTime" class="form-control" id="departureTime" readonly>
             </div>
         </div>
 
@@ -213,8 +232,8 @@
                 <label for="arrivalTime">Arrival Time:</label>
             </div>
             <div class="col-75">
-                <input type="text" [(ngModel)]="bookingDetailsDisplay.arrivalTime" placeholder="arrivalTime" name="arrivalTime"
-                    class="form-control" id="arrivalTime" readonly>
+                <input type="text" [(ngModel)]="bookingDetailsDisplay.arrivalTime" placeholder="arrivalTime"
+                    name="arrivalTime" class="form-control" id="arrivalTime" readonly>
             </div>
         </div>
 
@@ -243,4 +262,4 @@
         <br><br>
     </form>
 </div>
-<br/>
+<br />

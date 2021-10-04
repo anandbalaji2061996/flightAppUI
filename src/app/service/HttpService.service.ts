@@ -4,27 +4,12 @@ import { Observable } from 'rxjs';
 
 const place: String[] = ["Bangalore", "Chennai", "Coimbatore", "Delhi", "Hyderabad", "Mumbai", "Pune"];
 
-// export class UserLoginCredentials {
-//   constructor(
-//     public emailId: string,
-//     public password: string
-//   ) { }
-// }
-
 export class AdminLoginCredentials {
   constructor(
     public username: string,
     public password: string
   ) { }
 }
-
-// export class UserDetails {
-//   constructor(
-//     public name: string,
-//     public emailId: string,
-//     public password: string
-//   ) { }
-// }
 
 export class FlightDetails {
   constructor(
@@ -50,7 +35,7 @@ export class BookingDetailsFromUI {
     public name: string,
     public emailId: string,
     public numberOfSeats: number,
-    public passengerDetails: string,
+    public passengerDetails: [],
     public seatType: string,
     public mealOption: string,
     // public seatnos: string,

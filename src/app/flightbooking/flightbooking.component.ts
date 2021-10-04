@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService, FlightDetails, BookingDetailsFromUI, FlightAvailability } from '../service/HttpService.service';
+import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TokenStorageService } from '../service/token-storage.service';
 
@@ -21,11 +22,16 @@ export class FlightbookingComponent implements OnInit {
   tableStatus: boolean = false;
   discount: number;
   username: any;
-  bookingDetailsDisplay: BookingDetailsFromUI = new BookingDetailsFromUI("", "", 1, "", "", "", "", "", "", "", "", 1, "", "");
+  bookingDetailsDisplay: BookingDetailsFromUI = new BookingDetailsFromUI("", "", 1, [], "", "", "", "", "", "", "", 1, "", "");
   flightAvailability: FlightAvailability = new FlightAvailability("", "", "", "", "", 0, 0, 0, 0);
   flightWorkingDays: String;
+  passengerForm: FormGroup;
   constructor(private router: Router, private http: HttpService, private activatedRoute: ActivatedRoute,
-    private tokenStorageService: TokenStorageService) { }
+    private tokenStorageService: TokenStorageService, private fb: FormBuilder) {
+    this.passengerForm = this.fb.group({
+      passengers: this.fb.array([]),
+    });
+  }
 
   ngOnInit(): void {
     this.status = false;
@@ -47,6 +53,7 @@ export class FlightbookingComponent implements OnInit {
 
     this.places = this.http.getPlace();
     this.getAllAirline();
+    this.addPassenger();
   }
 
   getAllAirline() {
@@ -103,6 +110,8 @@ export class FlightbookingComponent implements OnInit {
 
   bookATicket(flightNumber: any) {
     this.status = false;
+    console.log(this.bookingDetailsDisplay.passengerDetails.length)
+
     if (this.bookingDetailsDisplay.flightNumber == "") {
       this.status = true;
       this.message = "Please choose the Flight you want to book!";
@@ -121,9 +130,9 @@ export class FlightbookingComponent implements OnInit {
       // } else if(this.bookingDetailsDisplay.seatnos == "") {
       //   this.status = true;
       //   this.message = "Please enter the seat numbers in format 1,2,3...";
-    } else if (this.bookingDetailsDisplay.passengerDetails == "") {
+    } else if (this.bookingDetailsDisplay.passengerDetails.length != this.bookingDetailsDisplay.numberOfSeats) {
       this.status = true;
-      this.message = "Please enter the passenger details in the format Name-Gender-Age,Name-Gender-Age,..."
+      this.message = "Please enter/save the passenger details for the number of seats entered."
     } else {
       var d = new Date(this.bookingDetailsDisplay.dateofTravel).getDay();
       if (this.flightWorkingDays == "WeekEnd") {
@@ -160,14 +169,7 @@ export class FlightbookingComponent implements OnInit {
         }
         console.log("Daily")
       }
-      // if(this.bookingDetailsDisplay.numberOfSeats != this.bookingDetailsDisplay.seatnos.split(",").length) {
-      //   this.status = true;
-      //   this.message = "Please provide only "+this.bookingDetailsDisplay.numberOfSeats+" in seat numbers field!"
-      // }
-      if (this.bookingDetailsDisplay.numberOfSeats != this.bookingDetailsDisplay.passengerDetails.split(",").length) {
-        this.status = true;
-        this.message = "Please provide " + this.bookingDetailsDisplay.numberOfSeats + " passenger details only in passenger details field!"
-      }
+
 
       if (!this.status) {
         this.flightAvailability.journeyDate = this.bookingDetailsDisplay.dateofTravel;
@@ -228,5 +230,37 @@ export class FlightbookingComponent implements OnInit {
   logout(): void {
     this.tokenStorageService.signOut();
     this.gotoLogin();
+  }
+
+
+  get passengers(): FormArray {
+    return this.passengerForm.get("passengers") as FormArray
+  }
+
+  newPassenger(): FormGroup {
+    return this.fb.group({
+      name: 'name1',
+      age: 20,
+      gender: ''
+    })
+  }
+
+  addPassenger() {
+    if (this.passengers.length <= this.bookingDetailsDisplay.numberOfSeats-1)
+      this.passengers.push(this.newPassenger());
+  }
+
+  removePassenger(i: number) {
+    if (this.passengers.length > 1)
+      this.passengers.removeAt(i);
+  }
+
+  onSubmit() {
+    if (this.passengers.length == this.bookingDetailsDisplay.numberOfSeats) {
+      this.bookingDetailsDisplay.passengerDetails = this.passengerForm.value.passengers;
+      console.log(this.bookingDetailsDisplay.passengerDetails);
+      console.log(this.bookingDetailsDisplay)
+    } else
+      alert("Please enter only " + this.bookingDetailsDisplay.numberOfSeats + " the passenger details")
   }
 }

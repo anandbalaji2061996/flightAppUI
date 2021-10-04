@@ -32,18 +32,6 @@ export class UserloginComponent implements OnInit {
     }
   }
 
-  // registerUser() {
-  //   this.authService.registerUser(this.user)
-  //     .subscribe(data => {
-  //       if (data == "User registered successfully!")
-  //       this.nextUrl(this.user.email);
-  //     else
-  //       alert("Credentials alredy available. Try with different credentials!");
-  //     }, error => {
-  //       alert("Credentials alredy available. Try with different credentials!");
-  //      console.log(error)
-  //   })
-  // };
   registerUser() {
     this.authService.registerUser(this.user).subscribe(
       data => {
@@ -70,22 +58,7 @@ export class UserloginComponent implements OnInit {
     );
   }
 
-  // loginUser() {
-  //   console.log(this.userLogin)
-  //   this.authService.loginUser(this.userLogin).subscribe(data => {
-  //     console.log(data);
-  //     if (data == "Success")
-  //       this.nextUrl(this.userLogin.username);
-  //     else
-  //       alert("Invalid Credentials! Please register your user details!");
-
-  //   }, error => {
-  //     alert("Invalid Credentials! Please register your user details!");
-  //     console.log(error)});
-  // }
-
   loginUser() {
-    console.log(this.userLogin)
     this.authService.loginUser(this.userLogin).subscribe(data => {
       console.log(data)
       this.tokenStorage.saveToken(data["accessToken"]);
