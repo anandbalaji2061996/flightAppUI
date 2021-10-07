@@ -168,6 +168,10 @@ export class HttpService {
     return this.http.delete(BASEURL_ADMIN + 'airline/delete/' + flightNumber, { responseType: 'text' })
   }
 
+  deleteFlightByAirline(airline: any) {
+    return this.http.delete(BASEURL_ADMIN + 'airline/airlineDelete/' + airline, {responseType: 'text'})
+  }
+
   searchFlight(fromPlace: any, toPlace: any) {
     return this.http.get(BASEURL_ADMIN + 'airline/fromPlace/' + fromPlace + "/toPlace/" + toPlace)
   }

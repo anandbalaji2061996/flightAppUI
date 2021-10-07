@@ -68,6 +68,10 @@ export class AirlineRegistrationComponent implements OnInit {
     } else if(this.flightDetails.discount <= 1) {
       this.status = true;
       this.message = "Please enter the Discount Percentage for the flight";
+    } else if(this.flightDetails.fromPlace == this.flightDetails.toPlace) {
+      this.status = true;
+      this.message = "From Place and To Place should not be same";
+      alert("From Place and To Place should not be same!")
     }
 
     this.flightDetails.discountCode = this.flightDetails.discountCode.toUpperCase();

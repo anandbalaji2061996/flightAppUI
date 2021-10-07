@@ -46,6 +46,8 @@ export class ViewAirlineComponent implements OnInit {
       this.getAllAirline();
     } else if (this.fromPlace == undefined || this.toPlace == undefined || this.airlineName == undefined) {
       alert("Please provide Airline Name, From place and To place");
+    } else if (this.fromPlace == this.toPlace) {
+      alert("From Place and To Place should not be same!")
     } else {
       this.http.searchByAirlineAndFromPlaceAndToPlace(this.airlineName, this.fromPlace, this.toPlace).subscribe(
         data => {

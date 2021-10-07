@@ -54,22 +54,11 @@ body {
   }
 }
 
-.tableStyle {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-
-.trStyle {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-
-.thStyle {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-
-.tdStyle {
-  border: 1px solid black;
-  border-collapse: collapse;
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  margin-left: 25%;
+  width: 50%;
+  margin-top: 20px;
 }

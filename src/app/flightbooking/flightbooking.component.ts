@@ -93,6 +93,8 @@ export class FlightbookingComponent implements OnInit {
     if (this.fromPlace == undefined || this.toPlace == undefined) {
       console.log(this.fromPlace + " " + this.toPlace)
       this.getAllAirline();
+    } else if (this.fromPlace == this.toPlace) {
+      alert("From Place and To place should not be same!")
     } else {
       this.http.searchFlight(this.fromPlace, this.toPlace).subscribe(
         data => {
