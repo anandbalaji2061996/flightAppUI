@@ -30,10 +30,12 @@
                 <label for="airline">Airline:</label>
             </div>
             <div class="col-75">
-                <select [(ngModel)]="flightDetails.airline" placeholder="Enter Airline" name="airline"
-                    class="form-control" id="airline">
+                <input type="text" [(ngModel)]="flightDetails.airline" placeholder="Enter Airline"
+                name="airline" class="form-control" id="airline" readonly>
+                <!-- <select [(ngModel)]="flightDetails.airline" placeholder="Enter Airline" name="airline"
+                    class="form-control" id="airline" read>
                     <option *ngFor="let a of airline" value={{a}}>{{a}}</option>
-                </select>
+                </select> -->
             </div>
         </div>
 

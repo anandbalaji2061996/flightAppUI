@@ -149,11 +149,7 @@ export class HttpService {
   }
 
   registerAirline(flightDetails: FlightDetails) {
-    return this.http.post(BASEURL_ADMIN + 'airline/register', flightDetails, {
-      headers: {
-        'content-type': 'application/json'
-      }
-    });
+    return this.http.post(BASEURL_ADMIN + 'airline/register', flightDetails, {responseType: 'text' });
   }
 
   updateInventory(flightNumber: any, flightDetails: FlightDetails) {
