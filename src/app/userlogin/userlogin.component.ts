@@ -45,7 +45,7 @@ export class UserloginComponent implements OnInit {
         this.errorMessage = err.error.message;
         this.isSignUpFailed = true;
         if (err instanceof HttpErrorResponse) {
-          if (err.status == 400) {
+          if (err.status == 400 || err.status == 409) {
             alert("User Details already exists!");
           } else if (err.status == 500) {
             alert("Please provide Username with minimum length of 3, Email id in proper format as abc@gmail.com & Password with minimum length 3 and maximum length 20.")
