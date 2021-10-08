@@ -194,6 +194,7 @@
             <div class="col-75">
                 <input type="date" id="start" name="trip-start" value="" id="dateofTravel"
                     [(ngModel)]="bookingDetailsDisplay.dateofTravel" required>
+                    <button class="btn btn-success" type="submit" (click)="checkAvailability()">Check Availability</button>
             </div>
         </div>
 

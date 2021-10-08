@@ -110,6 +110,63 @@ export class FlightbookingComponent implements OnInit {
     }
   }
 
+  checkAvailability() {
+    if (this.bookingDetailsDisplay.flightNumber == "")
+      alert("Please choose your flight for booking!")
+    else {
+      let s = true;
+      var d = new Date(this.bookingDetailsDisplay.dateofTravel).getDay();
+      if (this.flightWorkingDays == "WeekEnd") {
+        if (d == 0 || d == 6) {
+          if (new Date(this.bookingDetailsDisplay.dateofTravel) > new Date()) {
+            console.log("Date Accepted");
+          } else {
+            s = false;
+            alert("Please provide the Future date.");
+          }
+        } else {
+          s = false;
+          alert("Please provide the week end date[Sunday/Saturday]")
+        }
+      } else if (this.flightWorkingDays == "WeekDays") {
+        if (d >= 1 && d <= 5) {
+          console.log("WeekDays");
+          if (new Date(this.bookingDetailsDisplay.dateofTravel) > new Date()) {
+            console.log("Date Accepted");
+          } else {
+            s = false;
+            alert("Please provide the Future date.");
+          }
+        } else {
+          s = false;
+          alert("Please provide the week days date[Monday - Friday]");
+        }
+      } else {
+        if (new Date(this.bookingDetailsDisplay.dateofTravel) > new Date()) {
+          console.log("Date Accepted");
+        } else {
+          s = false;
+          alert("Please provide the Future date.")
+        }
+        console.log("Daily")
+      }
+
+
+      if (s) {
+        this.flightAvailability.journeyDate = this.bookingDetailsDisplay.dateofTravel;
+        this.http.getAvailability(this.flightAvailability).subscribe(
+          data => {
+            if (data != null) {
+              var response = data;
+              alert("Number of available Business Class seats - " + (response.valueOf()['nosOfBusinessClassSeats'] - response.valueOf()['nosOfBookedBusinessClassSeats']) + " & Non-Business Class seats - " + (response.valueOf()['nosOfNonBusinessClassSeats'] - response.valueOf()['nosOfBookedNonBusinessClassSeats']))
+            } else {
+              alert("Number of available Business Class seats - " + this.flightAvailability.nosOfBusinessClassSeats + " & Non-Business Class seats - " + this.flightAvailability.nosOfNonBusinessClassSeats);
+            }
+          }, error => console.log(error))
+      }
+    }
+  }
+
   bookATicket(flightNumber: any) {
     this.status = false;
     console.log(this.bookingDetailsDisplay.passengerDetails.length)
@@ -248,7 +305,7 @@ export class FlightbookingComponent implements OnInit {
   }
 
   addPassenger() {
-    if (this.passengers.length <= this.bookingDetailsDisplay.numberOfSeats-1)
+    if (this.passengers.length <= this.bookingDetailsDisplay.numberOfSeats - 1)
       this.passengers.push(this.newPassenger());
   }
 
