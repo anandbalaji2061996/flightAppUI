@@ -92,9 +92,9 @@ export class Airline {
   ) { }
 }
 
-const BASEURL_USER: string = "http://3.133.12.96:8091/api1/v1.0/user/flight/";
-const BASEURL_ADMIN: string = "http://3.135.229.99:8092/api2/v1.0/admin/flight/";
-const BASEURL_AIRLINE: string = "http://18.218.232.250:8093/api3/v1.0/admin/airline/";
+const BASEURL_USER: string = "http://3.130.139.9:8091/api1/v1.0/user/flight/";
+const BASEURL_ADMIN: string = "http://18.189.128.67:8092/api2/v1.0/admin/flight/";
+const BASEURL_AIRLINE: string = "http://3.132.43.13:8093/api3/v1.0/admin/airline/";
 
 @Injectable({
   providedIn: 'root'

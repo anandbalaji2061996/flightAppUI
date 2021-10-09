@@ -46,6 +46,11 @@ export class AirlineComponent implements OnInit {
     this.airline = airline;
   }
 
+  cancel() {
+    this.updateStatus = false;
+    this.airline = new Airline("", "", "");
+  }
+
   deleteAirline(airline: Airline) {
     if (confirm("Are you sure you want to cancel airline operation of " + airline.name + " ?")) {
       this.http.deleteFlightByAirline(airline.name).subscribe(data => {
@@ -85,7 +90,9 @@ export class AirlineComponent implements OnInit {
               this.airline = new Airline("", "", "");
             }, error => console.log(error));
           } else {
+            this.airline = new Airline("", "", "");
             this.getAirlineDetails();
+
           }
         } else {
           this.http.registerAirlineDetails(this.airline).subscribe(

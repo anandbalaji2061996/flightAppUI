@@ -11,15 +11,33 @@
 <div class="row">
     <div class="column">
         <form>
-            <div class="container" style="margin-left: 10%; width: 70%; height: 520px;">
+            <div class="container" *ngIf="updateStatus" style="margin-left: 10%; width: 70%; height: 520px;">
+                <h1>Update Airline Details</h1>
+                <p>Please fill the details in this form to update Airline.</p>
+                <hr>
+
+                <label for="name"><b>Airline Name</b></label>
+                <input type="text" [(ngModel)]="airline.name" placeholder="Enter Airline Name" name="name"
+                    class="form-control" id="name" readonly>
+
+                <label for="address"><b>Airline Address</b></label>
+                <input type="text" [(ngModel)]="airline.address" placeholder="Enter Address" name="address"
+                    class="form-control" id="address">
+
+                <label for="contactNumber"><b>Airline Contact Number</b></label>
+                <input type="text" [(ngModel)]="airline.contactNumber" placeholder="Enter Contact Number"
+                    name="contactNumber" class="form-control" id="contactNumber">
+                <button type="submit" class="registerbtn" (click)="registerAirline()" style="margin-top:10px;margin-left: 10px;">Update</button>
+                <button type="submit" class="registerbtn" (click)="cancel()" style="margin-top:10px;background-color: gray;">Cancel</button>
+
+            </div>
+            <div class="container" *ngIf="!updateStatus" style="margin-left: 10%; width: 70%; height: 520px;">
                 <h1>Airline Registration</h1>
                 <p>Please fill the details in this form to register Airline.</p>
                 <hr>
 
                 <label for="name"><b>Airline Name</b></label>
-                <input *ngIf="updateStatus" type="text" [(ngModel)]="airline.name" placeholder="Enter Airline Name" name="name"
-                    class="form-control" id="name" readonly>
-                <input *ngIf="!updateStatus" type="text" [(ngModel)]="airline.name" placeholder="Enter Airline Name" name="name"
+                <input type="text" [(ngModel)]="airline.name" placeholder="Enter Airline Name" name="name"
                     class="form-control" id="name">
 
                 <label for="address"><b>Airline Address</b></label>
