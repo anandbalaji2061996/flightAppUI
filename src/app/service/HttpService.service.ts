@@ -92,9 +92,13 @@ export class Airline {
   ) { }
 }
 
-const BASEURL_USER: string = "http://3.130.139.9:8091/api1/v1.0/user/flight/";
-const BASEURL_ADMIN: string = "http://18.189.128.67:8092/api2/v1.0/admin/flight/";
-const BASEURL_AIRLINE: string = "http://3.132.43.13:8093/api3/v1.0/admin/airline/";
+// const BASEURL_USER: string = "http://localhost:8091/api1/v1.0/user/flight/";
+// const BASEURL_ADMIN: string = "http://localhost:8092/api2/v1.0/admin/flight/";
+// const BASEURL_AIRLINE: string = "http://localhost:8093/api3/v1.0/admin/airline/";
+
+const BASEURL_USER: string = "http://18.218.29.39:8091/api1/v1.0/user/flight/";
+const BASEURL_ADMIN: string = "http://3.138.98.196:8092/api2/v1.0/admin/flight/";
+const BASEURL_AIRLINE: string = "http://18.217.57.177:8093/api3/v1.0/admin/airline/";
 
 @Injectable({
   providedIn: 'root'
@@ -177,7 +181,7 @@ export class HttpService {
   }
 
   saveAvailability(flightAvailability: FlightAvailability) {
-    return this.http.post(BASEURL_ADMIN + '/airline/availability', flightAvailability, {
+    return this.http.post(BASEURL_ADMIN + 'airline/availability', flightAvailability, {
       headers: {
         'content-type': 'application/json'
       }
@@ -185,7 +189,7 @@ export class HttpService {
   }
 
   getAvailability(flightAvailability: FlightAvailability) {
-    return this.http.post(BASEURL_ADMIN + '/airline/seats/availability', flightAvailability, {
+    return this.http.post(BASEURL_ADMIN + 'airline/seats/availability', flightAvailability, {
       headers: {
         'content-type': 'application/json'
       }
@@ -193,7 +197,7 @@ export class HttpService {
   }
 
   updateSeatAvailabilityAfterCancel(flightAvailability: FlightAvailability) {
-    return this.http.post(BASEURL_ADMIN + '/airline/seats/availability/aftercancel', flightAvailability, {
+    return this.http.post(BASEURL_ADMIN + 'airline/seats/availability/aftercancel', flightAvailability, {
       headers: {
         'content-type': 'application/json'
       }

@@ -239,6 +239,8 @@ export class FlightbookingComponent implements OnInit {
           this.flightAvailability.nosOfBookedNonBusinessClassSeats = this.bookingDetailsDisplay.numberOfSeats;
           this.flightAvailability.nosOfBookedBusinessClassSeats = 0;
         }
+
+        if(confirm("Do you want to book?")) {
         this.http.saveAvailability(this.flightAvailability).subscribe(
           data => {
             console.log(data);
@@ -262,6 +264,7 @@ export class FlightbookingComponent implements OnInit {
             alert("Only few sets available. Please reduce number of seats or book another flight with different timings!");
           }
         ), error => console.error(error);
+        }
       }
     }
   }
